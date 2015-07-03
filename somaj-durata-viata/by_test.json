@@ -1,0 +1,20 @@
+{
+    "an1989": [
+        {
+            "name": "Speranta de viata - femei",
+            "data": [
+                ["TR", 100],
+                ["VN", 200],
+                ["XX", 300]
+            ]
+        },
+        {
+            "name": "Speranta de viata - barbati",
+            "data": [
+                ["TR", 100],
+                ["VN", 200],
+                ["XX", 300]
+            ]
+        }
+    ]
+}

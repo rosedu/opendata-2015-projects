@@ -1,0 +1,1063 @@
+{
+  "series": {
+    "DOLJ": {
+      "FILIASI": {
+        "Populatie": "18206"
+      }, 
+      "DABULENI": {
+        "Populatie": "12265"
+      }, 
+      "CALAFAT": {
+        "Populatie": "16732"
+      }, 
+      "BECHET": {
+        "Populatie": "3883"
+      }, 
+      "CRAIOVA": {
+        "Populatie": "294510"
+      }, 
+      "BAILESTI": {
+        "Populatie": "19150"
+      }, 
+      "SEGARCEA": {
+        "Populatie": "7989"
+      }
+    }, 
+    "IALOMITA": {
+      "CAZANESTI": {
+        "Populatie": "3462"
+      }, 
+      "TANDAREI": {
+        "Populatie": "13222"
+      }, 
+      "FIERBINTI TARG": {
+        "Populatie": "4508"
+      }, 
+      "SLOBOZIA": {
+        "Populatie": "51079"
+      }, 
+      "FETESTI": {
+        "Populatie": "33588"
+      }, 
+      "AMARA": {
+        "Populatie": "8024"
+      }, 
+      "URZICENI": {
+        "Populatie": "16751"
+      }
+    }, 
+    "SALAJ": {
+      "SIMLEUL SILVANIEI": {
+        "Populatie": "16217"
+      }, 
+      "CEHU SILVANIEI": {
+        "Populatie": "7621"
+      }, 
+      "JIBOU": {
+        "Populatie": "11223"
+      }, 
+      "ZALAU": {
+        "Populatie": "63619"
+      }
+    }, 
+    "CALARASI": {
+      "FUNDULEA": {
+        "Populatie": "6681"
+      }, 
+      "LEHLIU GARA": {
+        "Populatie": "6258"
+      }, 
+      "CALARASI": {
+        "Populatie": "71951"
+      }, 
+      "OLTENITA": {
+        "Populatie": "26373"
+      }, 
+      "BUDESTI": {
+        "Populatie": "7118"
+      }
+    }, 
+    "VRANCEA": {
+      "FOCSANI": {
+        "Populatie": "96733"
+      }, 
+      "ADJUD": {
+        "Populatie": "18280"
+      }, 
+      "ODOBESTI": {
+        "Populatie": "9271"
+      }, 
+      "PANCIU": {
+        "Populatie": "8539"
+      }, 
+      "MARASESTI": {
+        "Populatie": "12651"
+      }
+    }, 
+    "HARGHITA": {
+      "VLAHITA": {
+        "Populatie": "7117"
+      }, 
+      "BORSEC": {
+        "Populatie": "2711"
+      }, 
+      "BAILE-TUSNAD": {
+        "Populatie": "1564"
+      }, 
+      "GHEORGHENI": {
+        "Populatie": "19502"
+      }, 
+      "BALAN": {
+        "Populatie": "7037"
+      }, 
+      "TOPLITA": {
+        "Populatie": "15073"
+      }, 
+      "CRISTURU-SECUIESC": {
+        "Populatie": "10193"
+      }, 
+      "ODORHEIU-SECUIESC": {
+        "Populatie": "35970"
+      }, 
+      "MIERCUREA-CIUC": {
+        "Populatie": "40791"
+      }
+    }, 
+    "SATU MARE": {
+      "ARDUD": {
+        "Populatie": "7365"
+      }, 
+      "SATU MARE": {
+        "Populatie": "109124"
+      }, 
+      "LIVADA": {
+        "Populatie": "7046"
+      }, 
+      "TASNAD": {
+        "Populatie": "9153"
+      }, 
+      "NEGRESTI": {
+        "Populatie": "14929"
+      }, 
+      "CAREI": {
+        "Populatie": "21671"
+      }
+    }, 
+    "MEHEDINTI": {
+      "DR. TR. SEVERIN": {
+        "Populatie": "103501"
+      }, 
+      "STREHAIA": {
+        "Populatie": "11188"
+      }, 
+      "ORSOVA": {
+        "Populatie": "11945"
+      }, 
+      "VANJU MARE": {
+        "Populatie": "6068"
+      }, 
+      "BAIA DE ARAMA": {
+        "Populatie": "5626"
+      }
+    }, 
+    "ARAD": {
+      "PANCOTA": {
+        "Populatie": "7616"
+      }, 
+      "PECICA": {
+        "Populatie": "13998"
+      }, 
+      "ARAD": {
+        "Populatie": "162450"
+      }, 
+      "SEBIS": {
+        "Populatie": "6067"
+      }, 
+      "CURTICI": {
+        "Populatie": "8078"
+      }, 
+      "SANTANA": {
+        "Populatie": "13375"
+      }, 
+      "INEU": {
+        "Populatie": "9394"
+      }, 
+      "CHISINEU CRIS": {
+        "Populatie": "8140"
+      }, 
+      "NADLAC": {
+        "Populatie": "7866"
+      }, 
+      "LIPOVA": {
+        "Populatie": "10739"
+      }
+    }, 
+    "BACAU": {
+      "MOINESTI": {
+        "Populatie": "22930"
+      }, 
+      "TARGU OCNA": {
+        "Populatie": "12665"
+      }, 
+      "COMANESTI": {
+        "Populatie": "22805"
+      }, 
+      "DARMANESTI": {
+        "Populatie": "14326"
+      }, 
+      "BACAU": {
+        "Populatie": "172508"
+      }, 
+      "SLANIC MOLDOVA": {
+        "Populatie": "4805"
+      }, 
+      "ONESTI": {
+        "Populatie": "47314"
+      }, 
+      "BUHUSI": {
+        "Populatie": "19026"
+      }
+    }, 
+    "IASI": {
+      "PODU ILOAIE": {
+        "Populatie": "10727"
+      }, 
+      "IASI": {
+        "Populatie": "327813"
+      }, 
+      "TARGU FRUMOS": {
+        "Populatie": "13273"
+      }, 
+      "PASCANI": {
+        "Populatie": "40983"
+      }, 
+      "HARLAU": {
+        "Populatie": "11815"
+      }
+    }, 
+    "MUN. BUCURESTI": {
+      "SECTORUL 3": {
+        "Populatie": "407622"
+      }, 
+      "SECTORUL 2": {
+        "Populatie": "352087"
+      }, 
+      "SECTORUL 1": {
+        "Populatie": "197390"
+      }, 
+      "SECTORUL 6": {
+        "Populatie": "369403"
+      }, 
+      "SECTORUL 5": {
+        "Populatie": "289407"
+      }, 
+      "SECTORUL 4": {
+        "Populatie": "300108"
+      }
+    }, 
+    "MARAMURES": {
+      "ULMENI": {
+        "Populatie": "7491"
+      }, 
+      "DRAGOMIRESTI": {
+        "Populatie": "3171"
+      }, 
+      "SOMCUTA MARE": {
+        "Populatie": "8042"
+      }, 
+      "TARGU LAPUS": {
+        "Populatie": "12759"
+      }, 
+      "SEINI": {
+        "Populatie": "10290"
+      }, 
+      "CAVNIC": {
+        "Populatie": "5079"
+      }, 
+      "BAIA MARE": {
+        "Populatie": "136127"
+      }, 
+      "SALISTEA DE SUS": {
+        "Populatie": "4978"
+      }, 
+      "TAUTII MAGHERAUS": {
+        "Populatie": "8109"
+      }, 
+      "BAIA SPRIE": {
+        "Populatie": "16423"
+      }, 
+      "VISEU DE SUS": {
+        "Populatie": "15995"
+      }, 
+      "SIGHETU MARMATIEI": {
+        "Populatie": "40571"
+      }, 
+      "BORSA": {
+        "Populatie": "28389"
+      }
+    }, 
+    "TELEORMAN": {
+      "TURNU MAGURELE": {
+        "Populatie": "26979"
+      }, 
+      "ROSIORI DE VEDE": {
+        "Populatie": "28770"
+      }, 
+      "ALEXANDRIA": {
+        "Populatie": "47662"
+      }, 
+      "VIDELE": {
+        "Populatie": "11495"
+      }, 
+      "ZIMNICEA": {
+        "Populatie": "14400"
+      }
+    }, 
+    "NEAMT": {
+      "ROZNOV": {
+        "Populatie": "9896"
+      }, 
+      "TARGU NEAMT": {
+        "Populatie": "20308"
+      }, 
+      "ROMAN": {
+        "Populatie": "64311"
+      }, 
+      "BICAZ": {
+        "Populatie": "8108"
+      }, 
+      "PIATRA NEAMT": {
+        "Populatie": "104202"
+      }
+    }, 
+    "GIURGIU": {
+      "BOLINTIN VALE": {
+        "Populatie": "12813"
+      }, 
+      "MIHAILESTI": {
+        "Populatie": "7557"
+      }, 
+      "GIURGIU": {
+        "Populatie": "65756"
+      }
+    }, 
+    "OLT": {
+      "SLATINA": {
+        "Populatie": "75219"
+      }, 
+      "POTCOAVA": {
+        "Populatie": "5789"
+      }, 
+      "CORABIA": {
+        "Populatie": "18361"
+      }, 
+      "BALS": {
+        "Populatie": "20289"
+      }, 
+      "CARACAL": {
+        "Populatie": "33479"
+      }, 
+      "PIATRA-OLT": {
+        "Populatie": "6076"
+      }, 
+      "DRAGANESTI-OLT": {
+        "Populatie": "11779"
+      }, 
+      "SCORNICESTI": {
+        "Populatie": "12107"
+      }
+    }, 
+    "VASLUI": {
+      "MURGENI": {
+        "Populatie": "7840"
+      }, 
+      "HUSI": {
+        "Populatie": "28618"
+      }, 
+      "BARLAD": {
+        "Populatie": "67196"
+      }, 
+      "NEGRESTI": {
+        "Populatie": "9987"
+      }, 
+      "VASLUI": {
+        "Populatie": "74676"
+      }
+    }, 
+    "BRASOV": {
+      "RASNOV": {
+        "Populatie": "16677"
+      }, 
+      "ZARNESTI": {
+        "Populatie": "25352"
+      }, 
+      "SACELE": {
+        "Populatie": "34215"
+      }, 
+      "RUPEA": {
+        "Populatie": "5511"
+      }, 
+      "BRASOV": {
+        "Populatie": "274935"
+      }, 
+      "CODLEA": {
+        "Populatie": "24505"
+      }, 
+      "FAGARAS": {
+        "Populatie": "36555"
+      }, 
+      "GHIMBAV": {
+        "Populatie": "5639"
+      }, 
+      "PREDEAL": {
+        "Populatie": "5115"
+      }, 
+      "VICTORIA": {
+        "Populatie": "8239"
+      }
+    }, 
+    "GALATI": {
+      "GALATI": {
+        "Populatie": "285416"
+      }, 
+      "TECUCI": {
+        "Populatie": "41891"
+      }, 
+      "BERESTI": {
+        "Populatie": "3134"
+      }, 
+      "TARGU BUJOR": {
+        "Populatie": "7403"
+      }
+    }, 
+    "CLUJ": {
+      "CLUJ-NAPOCA": {
+        "Populatie": "304509"
+      }, 
+      "CAMPIA-TURZII": {
+        "Populatie": "25738"
+      }, 
+      "GHERLA": {
+        "Populatie": "21895"
+      }, 
+      "ORS. HUEDIN": {
+        "Populatie": "9642"
+      }, 
+      "TURDA": {
+        "Populatie": "55597"
+      }, 
+      "DEJ": {
+        "Populatie": "37332"
+      }
+    }, 
+    "ILFOV": {
+      "MAGURELE": {
+        "Populatie": "9569"
+      }, 
+      "VOLUNTARI": {
+        "Populatie": "39006"
+      }, 
+      "POPESTI": {
+        "Populatie": "20817"
+      }, 
+      "OTOPENI": {
+        "Populatie": "13212"
+      }, 
+      "PANTELIMON": {
+        "Populatie": "24703"
+      }, 
+      "BUFTEA": {
+        "Populatie": "22064"
+      }, 
+      "BRAGADIRU": {
+        "Populatie": "13948"
+      }, 
+      "CHITILA": {
+        "Populatie": "14051"
+      }
+    }, 
+    "ALBA": {
+      "ZLATNA": {
+        "Populatie": "7905"
+      }, 
+      "AIUD": {
+        "Populatie": "25310"
+      }, 
+      "SEBES": {
+        "Populatie": "29811"
+      }, 
+      "BAIA DE ARIES": {
+        "Populatie": "3996"
+      }, 
+      "ALBA IULIA": {
+        "Populatie": "68796"
+      }, 
+      "OCNA MURES": {
+        "Populatie": "14631"
+      }, 
+      "CUGIR": {
+        "Populatie": "24968"
+      }, 
+      "CAMPENI": {
+        "Populatie": "7379"
+      }, 
+      "TEIUS": {
+        "Populatie": "7312"
+      }, 
+      "BLAJ": {
+        "Populatie": "20348"
+      }, 
+      "ABRUD": {
+        "Populatie": "5475"
+      }
+    }, 
+    "SUCEAVA": {
+      "CAJVANA": {
+        "Populatie": "8911"
+      }, 
+      "DOLHASCA": {
+        "Populatie": "11400"
+      }, 
+      "GURA HUMORULUI": {
+        "Populatie": "15808"
+      }, 
+      "RADAUTI": {
+        "Populatie": "29572"
+      }, 
+      "CIMPULUNG MOLDOVENESC": {
+        "Populatie": "19012"
+      }, 
+      "FRASIN": {
+        "Populatie": "6478"
+      }, 
+      "VATRA DORNEI": {
+        "Populatie": "16057"
+      }, 
+      "MILISAUTI": {
+        "Populatie": "5393"
+      }, 
+      "FALTICENI": {
+        "Populatie": "29112"
+      }, 
+      "SUCEAVA": {
+        "Populatie": "104624"
+      }, 
+      "SIRET": {
+        "Populatie": "9074"
+      }, 
+      "LITENI": {
+        "Populatie": "10269"
+      }, 
+      "SOLCA": {
+        "Populatie": "2665"
+      }, 
+      "BROSTENI": {
+        "Populatie": "6163"
+      }, 
+      "VICOVU DE SUS": {
+        "Populatie": "15299"
+      }, 
+      "SALCEA": {
+        "Populatie": "10283"
+      }
+    }, 
+    "CARAS - SEVERIN": {
+      "HERCULANE": {
+        "Populatie": "5706"
+      }, 
+      "RESITA": {
+        "Populatie": "79894"
+      }, 
+      "BOCSA": {
+        "Populatie": "16727"
+      }, 
+      "ANINA": {
+        "Populatie": "8259"
+      }, 
+      "MOLDOVA NOUA": {
+        "Populatie": "12565"
+      }, 
+      "CARANSEBES": {
+        "Populatie": "27870"
+      }, 
+      "OTELU ROSU": {
+        "Populatie": "11506"
+      }, 
+      "ORAVITA": {
+        "Populatie": "12287"
+      }
+    }, 
+    "MURES": {
+      "UNGHENI": {
+        "Populatie": "7003"
+      }, 
+      "MIERCUREA NIRAJ": {
+        "Populatie": "6206"
+      }, 
+      "TARGU MURES": {
+        "Populatie": "141595"
+      }, 
+      "LUDUS": {
+        "Populatie": "17248"
+      }, 
+      "SARMASU": {
+        "Populatie": "7344"
+      }, 
+      "SOVATA": {
+        "Populatie": "9180"
+      }, 
+      "TARNAVENI": {
+        "Populatie": "24770"
+      }, 
+      "SIGHISOARA": {
+        "Populatie": "31227"
+      }, 
+      "REGHIN": {
+        "Populatie": "36203"
+      }, 
+      "IERNUT": {
+        "Populatie": "9510"
+      }, 
+      "SANGEORGIU DE PADURE": {
+        "Populatie": "5529"
+      }
+    }, 
+    "GORJ": {
+      "NOVACI": {
+        "Populatie": "5908"
+      }, 
+      "MOTRU": {
+        "Populatie": "21670"
+      }, 
+      "TICLENI": {
+        "Populatie": "5094"
+      }, 
+      "TISMANA": {
+        "Populatie": "7550"
+      }, 
+      "BUMBESTI-JIU": {
+        "Populatie": "10095"
+      }, 
+      "TG-CARBUNESTI": {
+        "Populatie": "8821"
+      }, 
+      "TG-JIU": {
+        "Populatie": "95964"
+      }, 
+      "ROVINARI": {
+        "Populatie": "13291"
+      }, 
+      "TURCENI": {
+        "Populatie": "8131"
+      }
+    }, 
+    "ARGES": {
+      "PITESTI": {
+        "Populatie": "164119"
+      }, 
+      "CURTEA DE ARGES": {
+        "Populatie": "31691"
+      }, 
+      "TOPOLOVENI": {
+        "Populatie": "10391"
+      }, 
+      "COSTESTI": {
+        "Populatie": "10316"
+      }, 
+      "CAMPULUNG": {
+        "Populatie": "34554"
+      }, 
+      "STEFANESTI": {
+        "Populatie": "14918"
+      }, 
+      "MIOVENI": {
+        "Populatie": "33142"
+      }
+    }, 
+    "HUNEDOARA": {
+      "DEVA": {
+        "Populatie": "65351"
+      }, 
+      "PETROSANI": {
+        "Populatie": "40925"
+      }, 
+      "ORASTIE": {
+        "Populatie": "21048"
+      }, 
+      "HATEG": {
+        "Populatie": "10802"
+      }, 
+      "SIMERIA": {
+        "Populatie": "13171"
+      }, 
+      "GEOAGIU": {
+        "Populatie": "5520"
+      }, 
+      "URICANI": {
+        "Populatie": "8954"
+      }, 
+      "HUNEDOARA": {
+        "Populatie": "67390"
+      }, 
+      "LUPENI": {
+        "Populatie": "27687"
+      }, 
+      "PETRILA": {
+        "Populatie": "23913"
+      }, 
+      "VULCAN": {
+        "Populatie": "27364"
+      }, 
+      "BRAD": {
+        "Populatie": "15170"
+      }, 
+      "ANINOASA": {
+        "Populatie": "4524"
+      }, 
+      "CALAN": {
+        "Populatie": "12495"
+      }
+    }, 
+    "TULCEA": {
+      "SULINA": {
+        "Populatie": "4093"
+      }, 
+      "TULCEA": {
+        "Populatie": "88662"
+      }, 
+      "BABADAG": {
+        "Populatie": "10216"
+      }, 
+      "ISACCEA": {
+        "Populatie": "5290"
+      }, 
+      "MACIN": {
+        "Populatie": "10599"
+      }
+    }, 
+    "VALCEA": {
+      "BERBESTI": {
+        "Populatie": "5425"
+      }, 
+      "BAILE GOVORA": {
+        "Populatie": "2843"
+      }, 
+      "BABENI": {
+        "Populatie": "9946"
+      }, 
+      "BALCESTI": {
+        "Populatie": "5383"
+      }, 
+      "BAILE OLANESTI": {
+        "Populatie": "4515"
+      }, 
+      "OCNELE MARI": {
+        "Populatie": "3552"
+      }, 
+      "RAMNICU VALCEA": {
+        "Populatie": "110415"
+      }, 
+      "DRAGASANI": {
+        "Populatie": "19631"
+      }, 
+      "CALIMANESTI": {
+        "Populatie": "8715"
+      }, 
+      "BREZOI": {
+        "Populatie": "6851"
+      }, 
+      "HOREZU": {
+        "Populatie": "6552"
+      }
+    }, 
+    "BRAILA": {
+      "INSURATEI": {
+        "Populatie": "6830"
+      }, 
+      "FAUREI": {
+        "Populatie": "3866"
+      }, 
+      "BRAILA": {
+        "Populatie": "204275"
+      }, 
+      "IANCA": {
+        "Populatie": "10887"
+      }
+    }, 
+    "BUZAU": {
+      "BUZAU": {
+        "Populatie": "128192"
+      }, 
+      "NEHOIU": {
+        "Populatie": "10987"
+      }, 
+      "POGOANELE": {
+        "Populatie": "7362"
+      }, 
+      "PATIRLAGELE": {
+        "Populatie": "7621"
+      }, 
+      "RIMNICU SARAT": {
+        "Populatie": "38489"
+      }
+    }, 
+    "TIMIS": {
+      "TIMISOARA": {
+        "Populatie": "304079"
+      }, 
+      "GATAIA": {
+        "Populatie": "6186"
+      }, 
+      "LUGOJ": {
+        "Populatie": "43874"
+      }, 
+      "BUZIAS": {
+        "Populatie": "7452"
+      }, 
+      "CIACOVA": {
+        "Populatie": "5158"
+      }, 
+      "DETA": {
+        "Populatie": "6514"
+      }, 
+      "SANICOLAU MARE": {
+        "Populatie": "13113"
+      }, 
+      "RECAS": {
+        "Populatie": "9013"
+      }, 
+      "FAGET": {
+        "Populatie": "7209"
+      }, 
+      "JIMBOLIA": {
+        "Populatie": "11817"
+      }
+    }, 
+    "CONSTANTA": {
+      "NEGRUVODA": {
+        "Populatie": "5545"
+      }, 
+      "MANGALIA": {
+        "Populatie": "39198"
+      }, 
+      "MEDGIDIA": {
+        "Populatie": "43121"
+      }, 
+      "BANEASA": {
+        "Populatie": "5493"
+      }, 
+      "CONSTANTA": {
+        "Populatie": "296695"
+      }, 
+      "HARSOVA": {
+        "Populatie": "10466"
+      }, 
+      "CERNAVODA": {
+        "Populatie": "18179"
+      }, 
+      "OVIDIU": {
+        "Populatie": "14518"
+      }, 
+      "MURFATLAR": {
+        "Populatie": "10741"
+      }, 
+      "NAVODARI": {
+        "Populatie": "37133"
+      }, 
+      "EFORIE": {
+        "Populatie": "10663"
+      }, 
+      "TECHIRGHIOL": {
+        "Populatie": "7783"
+      }
+    }, 
+    "SIBIU": {
+      "COPSA MICA": {
+        "Populatie": "5618"
+      }, 
+      "AVRIG": {
+        "Populatie": "14464"
+      }, 
+      "TALMACIU": {
+        "Populatie": "7673"
+      }, 
+      "AGNITA": {
+        "Populatie": "10801"
+      }, 
+      "SALISTE": {
+        "Populatie": "5875"
+      }, 
+      "SIBIU": {
+        "Populatie": "153817"
+      }, 
+      "OCNA SIBIULUI": {
+        "Populatie": "4207"
+      }, 
+      "MEDIAS": {
+        "Populatie": "51196"
+      }, 
+      "MIERCUREA SIBIULUI": {
+        "Populatie": "4260"
+      }, 
+      "DUMBRAVENI": {
+        "Populatie": "8096"
+      }, 
+      "CISNADIE": {
+        "Populatie": "16334"
+      }
+    }, 
+    "BISTRITA - NASAUD": {
+      "BECLEAN": {
+        "Populatie": "11686"
+      }, 
+      "NASAUD": {
+        "Populatie": "10951"
+      }, 
+      "BISTRITA": {
+        "Populatie": "85820"
+      }, 
+      "SINGEORZ BAI": {
+        "Populatie": "11046"
+      }
+    }, 
+    "COVASNA": {
+      "TG.SECUIESC": {
+        "Populatie": "19622"
+      }, 
+      "SF.GHEORGHE": {
+        "Populatie": "60393"
+      }, 
+      "BARAOLT": {
+        "Populatie": "9213"
+      }, 
+      "COVASNA": {
+        "Populatie": "10984"
+      }, 
+      "INT.BUZAULUI": {
+        "Populatie": "8922"
+      }
+    }, 
+    "DAMBOVITA": {
+      "TITU": {
+        "Populatie": "10000"
+      }, 
+      "PUCIOASA": {
+        "Populatie": "14992"
+      }, 
+      "MUN.TARGOVISTE": {
+        "Populatie": "86423"
+      }, 
+      "FIENI": {
+        "Populatie": "7535"
+      }, 
+      "GAESTI": {
+        "Populatie": "14693"
+      }, 
+      "MUN.MORENI": {
+        "Populatie": "19614"
+      }, 
+      "RACARI": {
+        "Populatie": "6565"
+      }
+    }, 
+    "BIHOR": {
+      "ALESD": {
+        "Populatie": "10663"
+      }, 
+      "SACUIENI": {
+        "Populatie": "11854"
+      }, 
+      "MARGHITA": {
+        "Populatie": "16602"
+      }, 
+      "SALONTA": {
+        "Populatie": "17896"
+      }, 
+      "VASCAU": {
+        "Populatie": "2538"
+      }, 
+      "ORADEA": {
+        "Populatie": "201983"
+      }, 
+      "BEIUS": {
+        "Populatie": "11024"
+      }, 
+      "STEI": {
+        "Populatie": "7891"
+      }, 
+      "NUCET": {
+        "Populatie": "2514"
+      }, 
+      "VALEA LUI MIHAI": {
+        "Populatie": "10248"
+      }
+    }, 
+    "PRAHOVA": {
+      "CAMPINA": {
+        "Populatie": "35764"
+      }, 
+      "BOLDESTI SCAIENI": {
+        "Populatie": "11251"
+      }, 
+      "URLATI": {
+        "Populatie": "11291"
+      }, 
+      "SLANIC": {
+        "Populatie": "6237"
+      }, 
+      "BREAZA": {
+        "Populatie": "17103"
+      }, 
+      "MIZIL": {
+        "Populatie": "15796"
+      }, 
+      "SINAIA": {
+        "Populatie": "11159"
+      }, 
+      "BAICOI": {
+        "Populatie": "19239"
+      }, 
+      "AZUGA": {
+        "Populatie": "4757"
+      }, 
+      "VALENII DE MUNTE": {
+        "Populatie": "13389"
+      }, 
+      "PLOIESTI": {
+        "Populatie": "222545"
+      }, 
+      "PLOPENI": {
+        "Populatie": "9161"
+      }, 
+      "COMARNIC": {
+        "Populatie": "12649"
+      }, 
+      "BUSTENI": {
+        "Populatie": "9784"
+      }
+    }, 
+    "BOTOSANI": {
+      "FLAMINZI": {
+        "Populatie": "11667"
+      }, 
+      "DOROHOI": {
+        "Populatie": "28542"
+      }, 
+      "SAVENI": {
+        "Populatie": "7678"
+      }, 
+      "STEFANESTI": {
+        "Populatie": "5586"
+      }, 
+      "BOTOSANI": {
+        "Populatie": "112758"
+      }, 
+      "DARABANI": {
+        "Populatie": "11881"
+      }, 
+      "BUCECEA": {
+        "Populatie": "5190"
+      }
+    }
+  }
+}

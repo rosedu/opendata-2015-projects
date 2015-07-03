@@ -1,0 +1,526 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/maps/modules/map.js"></script>
+<script src="http://code.highcharts.com/mapdata/countries/ro/ro-all.js"></script>
+
+
+<head>
+    <title>my</title>
+    <style type="text/css"> 
+        #wrapper {
+	        height: 1000px;
+	        width: 1300px;
+	        margin: 0 auto;
+	        padding: 0;
+        }
+        #container {
+	        float: left;
+	        height: 500px; 
+	        width: 700px; 
+	        margin: 80px 0 0 0;
+        }
+/*        #wrapper {
+            float: left;
+            height: 1000px;
+            width: 600px;
+            align:  right;
+            margin: 0 auto;
+            padding-left: 20px;
+            margin: 20px 0 0 0;
+            border-left: 1px solid silver;
+        }*/
+        #info {
+	        float: left;
+	        width: 270px;
+	        padding-left: 20px;
+	        margin: 20px 0 0 0;
+        }
+        #info h2 {
+	        display: inline;
+        }
+
+        #info h4 {
+	        margin: 1em 0 0 0;
+        }
+        #infoo {
+            float: left;
+            width: 270px;
+            padding-left: 20px;
+            margin: 43px 0 0 0;
+        }
+
+        #infoo h4 {
+            margin: 1em 0 0 0;
+        }
+        #infoo {
+            float: left;
+            width: 270px;
+            padding-left: 20px;
+            margin: 43px 0 0 0;
+        }
+
+        #infoo h4 {
+            margin: 1em 0 0 0;
+        }
+        #infooo {
+            float: left;
+            width: 270px;
+            padding-left: 20px;
+            margin: 43px 0 0 0;
+        }       
+        #infooo h4 {
+            margin: 1em 0 0 0;
+        }
+        #infoooo {
+            float: left;
+            width: 270px;
+            padding-left: 20px;
+            margin: 43px 0 0 0;
+        }
+
+        #infoooo h4 {
+            margin: 1em 0 0 0;
+        }
+</style> 
+</head>
+<body>
+    <div id="wrapper">
+	    <div id="container"></div>
+        <div id= "wraper">
+    	    <div id="info">
+    		    <h2></h2>
+    		    <div class="subheader">Apasa pe judet pentru detalii </div>
+                <div class="subheader2">Pentru comparatii tine apsat shift si selecteaza judetele dorite</div>
+    			<div id="decedati_1000"></div>
+            </div>
+             <div id="infooo">
+                <h2></h2>
+                <div class="subheader"></div>
+                <div id="decedati"></div>
+            </div>
+            <div id="infoo">
+                <h2></h2>
+                <div class="subheader"></div>
+                <div id="cheltuieli_bolnavi"></div>
+            </div>
+            <div id="infoooo">
+                <h2></h2>
+                <div class="subheader"></div>
+                <div id="cheltuieli_zi"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+$.get('parsed/maps.json', function(data) {
+    $.getJSON('judete2.geojson', function(judete_geojson) {
+        var mapChart,
+            decedati_1000,
+            cheltuieli_zi,
+            decedati,
+            cheltuieli_bolnavi,
+            numRegex = /^[0-9\.]+$/,
+            quoteRegex = /\"/g,
+            categories = ['2005', '2006' , '2007', '2008', '2009', '2010', '2011', '2012', '2013']
+
+        /*$.get('parsed/nr_decedati_1000.json', function(data) {  
+
+
+
+
+            console.log(data.series[1]);
+            var date = [];
+            for (var siruta in data.series) {
+                var value = null,
+                    itemData = data.series[siruta].data,
+                    i = itemData.length;
+                console.log(itemData);
+                while (i--) {
+                    if (typeof itemData[i] === 'number') {
+                        value = itemData[i];
+                        break;
+                    }
+                }
+                date.push({
+                    name: data.series[siruta].name,
+                    siruta: siruta ,
+                    value: value,
+                });
+            }    
+        });
+
+    */
+        Highcharts.wrap(Highcharts.Point.prototype, 'select', function (proceed) {
+
+            proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+
+            var points = mapChart.getSelectedPoints();
+            if (points.length) {
+                if (points.length === 1) {
+                    $('#info h2').html(points[0].name);
+                } else {
+                    $('#info h2').html('Comparand judete');
+
+                }
+                $('#info .subheader').html('<h4>Decedati ( per mie )</h4>')
+                $('#info .subheader2').html('')
+                $('#infoo .subheader').html('<h4>Cheltuieli ( per bolnav )</h4><small><em></em></small>')
+                $('#infooo .subheader').html('<h4>Decedati ( total )</h4><small><em></em></small>')
+                $('#infoooo .subheader').html('<h4>Cheltuieli ( per zi spitalizare )</h4><small><em></em></small>')
+                if (!decedati_1000) {
+                    decedati_1000 = $('#decedati_1000').highcharts({
+                        chart: {
+                            height: 250,
+                            spacingLeft: 0
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        title: {
+                            text: null
+                        },
+                        subtitle: {
+                            text: null
+                        },
+                        xAxis: {
+                            tickPixelInterval: 50,
+                            crosshair: true
+                        },
+                        yAxis: {
+                            title: null,
+                            opposite: true
+                        },
+                        legend : {
+                            enabled: true,
+                            align : "left",
+                            verticalAlign : "top"
+                        },
+                        tooltip: {
+                            //valueSuffix: ' morti la mie',
+                            shared: true
+                        },
+                        plotOptions: {
+                            series: {
+                                animation: {
+                                    duration: 500
+                                },
+                                marker: {
+                                    enabled: false
+                                },
+                                threshold: 0,
+                                pointStart: parseInt(categories[0]),
+                            }
+                        },
+                    }).highcharts();
+                    cheltuieli_bolnavi = $('#cheltuieli_bolnavi').highcharts({
+                        chart: {
+                            height: 250,
+                            spacingLeft: 0
+                        },
+                        credits: {
+                            enabled: true
+                        },
+                        title: {
+                            text: null
+                        },
+                        subtitle: {
+                            text: null
+                        },
+                        xAxis: {
+                            tickPixelInterval: 50,
+                            crosshair: true
+                        },
+                        yAxis: {
+                            title: null,
+                            opposite: true
+                        },
+                        legend : {
+                            enabled: false,
+                        },
+                        tooltip: {
+                            valueSuffix: ' RON',
+                            shared: true
+                        },
+                        plotOptions: {
+                            series: {
+                                animation: {
+                                    duration: 500
+                                },
+                                marker: {
+                                    enabled: false
+                                },
+                                threshold: 0,
+                                pointStart: parseInt(categories[0]),
+                            }
+                        },
+                    }).highcharts();
+                    decedati = $('#decedati').highcharts({
+                        chart: {
+                            height: 250,
+                            spacingLeft: 0
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        title: {
+                            text: null
+                        },
+                        subtitle: {
+                            text: null
+                        },
+                        xAxis: {
+                            tickPixelInterval: 50,
+                            crosshair: true
+                        },
+                        yAxis: {
+                            title: null,
+                            opposite: true
+                        },
+                        legend : {
+                            enabled: false,
+                            align : "left",
+                            verticalAlign : "top"
+                        },
+                        tooltip: {
+                            //valueSuffix: ' RON',
+                            shared: true
+                        },
+                        plotOptions: {
+                            series: {
+                                animation: {
+                                    duration: 500
+                                },
+                                marker: {
+                                    enabled: false
+                                },
+                                threshold: 0,
+                                pointStart: parseInt(categories[0]),
+                            }
+                        },
+                    }).highcharts();
+                    cheltuieli_zi = $('#cheltuieli_zi').highcharts({
+                        chart: {
+                            height: 250,
+                            spacingLeft: 0
+                        },
+                        credits: {
+                            enabled: true
+                        },
+                        title: {
+                            text: null
+                        },
+                        subtitle: {
+                            text: null
+                        },
+                        xAxis: {
+                            tickPixelInterval: 50,
+                            crosshair: true
+                        },
+                        yAxis: {
+                            title: null,
+                            opposite: true
+                        },
+                        legend : {
+                            enabled: false,
+                        },
+                        tooltip: {
+                            valueSuffix: ' RON',
+                            shared: true
+                        },
+                        plotOptions: {
+                            series: {
+                                animation: {
+                                    duration: 500
+                                },
+                                marker: {
+                                    enabled: false
+                                },
+                                threshold: 0,
+                                pointStart: parseInt(categories[0]),
+                            }
+                        },
+                    }).highcharts();
+                }
+                    
+
+                $.get('parsed/nr_decedati_1000.json', function(data) {
+                    $.each(points, function (i) {
+                        // Update
+                        if (decedati_1000.series[i]) {
+                            /*$.each(countries[this.code3].data, function (pointI, value) {
+                                countryChart.series[i].points[pointI].update(value, false);
+                            });*/
+                            console.log('updating' , data.series[this.siruta-1]),
+                            decedati_1000.series[i].update({
+                                name: this.name,
+                                data: data.series[this.siruta-1].data,
+                                type: points.length > 1 ? 'line' : 'area'
+                            });
+                        } else {
+                            console.log('adding' , data.series[this.siruta-1]),
+                            decedati_1000.addSeries({
+                                name: this.name,
+                                data: data.series[this.siruta-1].data,
+                                type: points.length > 1 ? 'line' : 'area'
+                            });
+                        }
+                    });
+                });
+                $.get('parsed/cheltuieli_per_bolnav.json', function(data) {
+                    $.each(points, function (i) {
+                        // Update
+                        if (cheltuieli_bolnavi.series[i]) {
+                            /*$.each(countries[this.code3].data, function (pointI, value) {
+                                countryChart.series[i].points[pointI].update(value, false);
+                            });*/
+                            console.log('updating' , data.series[this.siruta-1]),
+                            cheltuieli_bolnavi.series[i].update({
+                                name: this.name,
+                                data: data.series[this.siruta-1].data,
+                                type: points.length > 1 ? 'line' : 'area'
+                            });
+                        } else {
+                            console.log('adding' , data.series[this.siruta-1]),
+                            cheltuieli_bolnavi.addSeries({
+                                name: this.name,
+                                data: data.series[this.siruta-1].data,
+                                type: points.length > 1 ? 'line' : 'area'
+                            });
+                        }
+                    });
+                });
+                $.get('parsed/nr_decedati.json', function(data) {
+                    $.each(points, function (i) {
+                        // Update
+                        if (decedati.series[i]) {
+                            /*$.each(countries[this.code3].data, function (pointI, value) {
+                                countryChart.series[i].points[pointI].update(value, false);
+                            });*/
+                            console.log('updating' , data.series[this.siruta-1]),
+                            decedati.series[i].update({
+                                name: this.name,
+                                data: data.series[this.siruta-1].data,
+                                type: points.length > 1 ? 'line' : 'area'
+                            });
+                        } else {
+                            console.log('adding' , data.series[this.siruta-1]),
+                            decedati.addSeries({
+                                name: this.name,
+                                data: data.series[this.siruta-1].data,
+                                type: points.length > 1 ? 'line' : 'area'
+                            });
+                        }
+                    });
+                });
+                $.get('parsed/cheltuieli_zi_spitalizare.json', function(data) {
+                    $.each(points, function (i) {
+                        // Update
+                        if (cheltuieli_zi.series[i]) {
+                            /*$.each(countries[this.code3].data, function (pointI, value) {
+                                countryChart.series[i].points[pointI].update(value, false);
+                            });*/
+                            console.log('updating' , data.series[this.siruta-1]),
+                            cheltuieli_zi.series[i].update({
+                                name: this.name,
+                                data: data.series[this.siruta-1].data,
+                                type: points.length > 1 ? 'bar' : 'area'
+                            });
+                        } else {
+                            console.log('adding' , data.series[this.siruta-1]),
+                            cheltuieli_zi.addSeries({
+                                name: this.name,
+                                data: data.series[this.siruta-1].data,
+                                type: points.length > 1 ? 'bar' : 'area'
+                            });
+                        }
+                    });
+                });
+                while (decedati_1000.series.length > points.length) {
+                    //console.log(countryChart.series[countryChart.series.length - 1]);
+                    decedati_1000.series[decedati_1000.series.length - 1].remove(false);
+                    cheltuieli_bolnavi.series[cheltuieli_bolnavi.series.length - 1].remove(false);
+                    decedati.series[decedati.series.length - 1].remove(false);
+                    cheltuieli_zi.series[cheltuieli_zi.series.length - 1].remove(false);
+                }
+                decedati_1000.redraw();
+                cheltuieli_bolnavi.redraw();
+                decedati.redraw();
+                cheltuieli_zi.redraw();
+
+            } else {  
+                $('#info h2').html('');
+                $('#info .subheader').html('Apasa pe judet pentru detalii');
+                $('#info .subheader2').html('Pentru comparatii tine apsat shift si selecteaza judetele dorite');
+                $('#infoo .subheader').html('');
+                $('#infoo .subheader').html('');
+                $('#infooo .subheader').html('');
+                $('#infoooo .subheader').html('');
+                if (decedati_1000) {
+                    decedati_1000 = decedati_1000.destroy();
+                    cheltuieli_bolnavi = cheltuieli_bolnavi.destroy();
+                    decedati = decedati.destroy();
+                    cheltuieli_zi = cheltuieli_zi.destroy();
+                }
+            }
+
+            
+
+        });
+        
+        mapChart = $('#container').highcharts('Map', {
+          title: {
+            text: 'Morbiditatea'
+          },
+          subtitle: {
+            text: '2005-2013'
+          },
+          mapNavigation: {
+              enabled: true,
+              enableButtons: false
+          },
+          tooltip: {
+            footerFormat: '<span style="font-size: 10px"></span>'
+          },
+          legend: {
+            layout: 'horizontal',
+            //align: 'bottom',
+            //verticalAlign: 'middle',
+            borderWidth: 1
+          },
+          colorAxis: {
+              //min: 1,
+              //type: 'logarithmic',
+              //minColor: '#FFFFFF',
+              //maxColor: '#CC0000',
+          },
+          series: [{
+            data: data.series,
+            mapData: judete_geojson,
+            color: 'maroon' ,
+            joinBy: ['name', 'namee'],
+            allowPointSelect: true,
+            cursor: 'pointer',
+            name: 'Decedati',
+            tooltip: {
+                pointFormat: '{point.namee}: {point.value}',
+            },
+            states: {
+                hover: {
+                    color: '#800000'
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                color: 'white',
+                format: '{point.brev}'
+            }
+          }]
+        }).highcharts();
+        mapChart.get('RO.BI').select();
+    });
+});
+</script>

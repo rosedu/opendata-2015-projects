@@ -1,0 +1,152 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.5/highcharts.js"></script>
+<link href="lala.css" rel="stylesheet" type="text/css" />
+
+<body>
+
+<div id="chartparent">
+  
+</div>
+
+<div id="container-fixed">
+  <div id="container">
+    <div class="arrow noselect" id="arrowleft">&lt;</div>
+    <div class="arrow noselect" id="arrowright">&gt;</div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+var isShowing;
+
+window.onload = function() {
+    var output = document.getElementById('chartparent');
+    for (var i = 1989; i < 2014; i++) {
+        if(!document.getElementById('chart'+i))
+        {
+            var ele = document.createElement("div");
+            ele.setAttribute("id","chart"+i);
+            ele.setAttribute("class", "chart");
+            if (i != 1989)
+              ele.setAttribute("style", "display:none;")
+            output.appendChild(ele);
+            LoadIndividualByYear(i);
+        }
+    }
+    // initial, se afiseaza situatia din 1989
+    isShowing = 1989;
+};
+
+document.getElementById('arrowright').onclick = function() {
+  if (isShowing < 2013) {
+    var ele = document.getElementById('chart'+isShowing);
+    ele.setAttribute("style", "display:none;")
+    ele = document.getElementById('chart'+(isShowing+1));
+    ele.setAttribute("style", "display:block;")
+    isShowing++;
+  }
+}
+
+document.getElementById('arrowleft').onclick = function() {
+  if (isShowing > 1989) {
+    var ele = document.getElementById('chart'+isShowing);
+    ele.setAttribute("style", "display:none;")
+    ele = document.getElementById('chart'+(isShowing-1));
+    ele.setAttribute("style", "display:inherit;")
+    isShowing--;
+  }
+}
+
+function LoadIndividualByYear(i) {
+$.getJSON('master2.json', function(data) {
+  console.log(data["an"+i])
+  $('#chart'+i).highcharts({
+    title: {
+      text: 'Speranta de viata in raport cu rata somajului - '+i
+    },
+    yAxis: [
+  {
+      title: {
+        text: 'speranta de viata [ani]'
+      },
+    min: 60,
+    max: 80
+    },
+  {
+    title: {
+      text: 'procentul de somaj [%]'
+    },
+    min: 4,
+    max: 14
+  }
+  ],
+  xAxis: [{
+    categories: data.nume
+  }],
+  series: [
+  {
+    name: 'speranta de viata - femei',
+    yAxis: 0,
+    data: data["an"+i].df,
+    tooltip: {
+      valueSuffix: ' ani'
+    }
+  },
+  {
+    name: 'procentul de somaj - femei',
+    type: 'spline',
+    yAxis: 1,
+    data: data["an"+i].somajf,
+    tooltip: {
+      valueSuffix: ' %'
+    },
+    zIndex: 1
+  },
+  {
+    name: 'speranta de viata - barbati',
+    data: data["an"+i].dm,
+    yAxis: 0,
+    tooltip: {
+      valueSuffix: ' ani'
+    }
+  },
+  {
+    name: 'procentul de somaj - barbati',
+    type: 'spline',
+    yAxis: 1,
+    data: data["an"+i].somajm,
+    tooltip: {
+      valueSuffix: ' %'
+    },
+    zIndex: 1
+  }
+  ],
+    tooltip: {
+    shared: true
+  },
+    legend: {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+    },
+  chart: {
+    renderTo: 'container',
+    type: 'column'
+  },
+  plotOptions: {
+    column: {
+      groupPadding: 0.1,
+      pointPadding: 0,
+      borderWidth: 0
+    }
+  }
+  });
+});
+}
+</script>
+
+</body>

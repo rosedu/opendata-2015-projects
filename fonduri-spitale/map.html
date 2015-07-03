@@ -1,0 +1,126 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/maps/modules/map.js"></script>
+<script src="http://code.highcharts.com/mapdata/custom/world.js"></script>
+
+
+<head>
+    <title>my</title>
+    <style type="text/css"> 
+        #container{
+            width: 600px;
+            height: 500px;
+            float: left;
+        }
+        #country-chart{
+            width: 600px;
+            float: right;
+        }
+</style> 
+</head>
+
+<body>
+    <div id="container"></div>
+    <div id="country-chart" ></div>
+</body>
+
+
+
+<script>
+$.get('parsed/map.json', function(data) {
+  $.getJSON('judete.geojson', function(judete_geojson) {
+    
+    mapChart = $('#container').highcharts('Map', {
+      title: {
+        text: 'morti 2013'
+      },
+      
+      mapNavigation: {
+          enabled: true,
+          buttonOptions: {
+              verticalAlign: 'bottom'
+          }
+      },
+      tooltip: {
+        footerFormat: '<span style="font-size: 10px">(Click for details)</span>'
+      },
+      legend: {
+        layout: 'horizontal',
+        //align: 'bottom',
+        //verticalAlign: 'middle',
+        borderWidth: 1
+      },
+      colorAxis: {
+          //min: 1,
+          //type: 'logarithmic',
+          //minColor: '#FFFFFF',
+          //maxColor: '#CC0000',
+      },
+      series: [{
+        data: data.series,
+        mapData: judete_geojson,
+        color: 'maroon' ,
+        joinBy: ['id', 'siruta'],
+        allowPointSelect: true,
+        cursor: 'pointer',
+        name: 'morti',
+        tooltip: {
+            pointFormat: '{point.namee}: {point.value} morti',
+        },
+        states: {
+            hover: {
+                color: '#800000'
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            color: 'white',
+            format: '{point.brev}'
+        }
+      }]
+    });
+    $('#country-chart').highcharts('Map', {
+      title: {
+        text: 'Valoarea totală a contractelor'
+      },
+      mapNavigation: {
+          enabled: true,
+          buttonOptions: {
+              //verticalAlign: 'bottom'
+          }
+      },
+      colorAxis: {
+          min: 1,
+          type: 'logarithmic',
+          minColor: '#EEEEFF',
+          maxColor: '#000022',
+          stops: [
+              [0, '#EFEFFF'],
+              [0.67, '#4444FF'],
+              [1, '#000022']
+          ]
+      },
+      series: [{
+        data: data.series,
+        mapData: judete_geojson,
+        joinBy: ['name', 'namee'],
+        allowPointSelect: true,
+        cursor: 'pointer',
+        name: 'Valoarea',
+        states: {
+            hover: {
+                color: '#BBDA55'
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            format: '{point.siruta}'
+        }
+      }]
+    });
+  });
+});
+</script>

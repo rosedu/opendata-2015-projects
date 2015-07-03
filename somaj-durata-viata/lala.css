@@ -1,0 +1,51 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#chartparent {
+	outline: 1px solid red;
+}
+
+#container-fixed {
+	position: fixed;
+	bottom: 20px;
+	width: 100%;
+}
+
+#container {
+	#outline: 1px solid #ddd;
+	margin: 0 auto;
+	position: relative;
+    bottom: 1em;
+    width: 200px;
+}
+
+.chart {
+	position: absolute;
+	width: 100%;
+}
+
+.arrow {
+	outline: 1px solid #ccc;
+	position: relative;
+	display: inline;
+	padding: 10px 30px;
+	font-size: 4em;
+	color: #aaa;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.noselect {
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.arrow:hover {
+	background-color: #eee;
+}

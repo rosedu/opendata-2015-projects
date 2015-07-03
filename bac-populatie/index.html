@@ -1,0 +1,314 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<body style="background-color:#7FFFD4">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//code.highcharts.com/highcharts.js"></script>
+<script src="//code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+
+<body>
+<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+<!--SCRIPT1-->
+
+<script>
+$.getJSON('data/male_female.json', function(data) {
+    $('#container').highcharts({
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: 'Medii bacalaureat 2014'
+        },
+        subtitle: {
+            text: 'Source: data.gov.ro'
+        },
+        xAxis: [{
+            categories: ['Biologie vegetală și animală', 'Geografie', 'Matematică TEHN', 'Filosofie', 'Anatomie și fiziologie umană, genetică și ecologie umană', 'Sociologie', 'Chimie anorganică TEO Nivel I/II     ', 'Psihologie', 'Informatică MI C/C++', 'Logică, argumentare și comunicare', 'Matematică PED', 'Limba română (REAL)', 'Informatică SN Pascal', 'Matematică ST-NAT', 'Istorie', 'Chimie organică TEH Nivel I/II', 'Informatică MI Pascal', 'Matematică MATE-INFO', 'Chimie organică TEO Nivel I/II', 'Limba română (UMAN)', 'Fizică TEO', 'Economie', 'Fizică TEH', 'Chimie anorganică TEH Nivel I/II     ', 'Informatică SN C/C++'],
+            crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            title: {
+                text: 'Male',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            opposite: true
+
+        }, { // Secondary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: 'Female',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            }
+
+        }, { // Tertiary yAxis
+            gridLineWidth: 0,
+            title: {
+                text: 'Media',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            },
+            opposite: true
+        }],
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 80,
+            verticalAlign: 'top',
+            y: 55,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+       series: data.series
+    });
+});
+</script>
+<br>
+<br>
+
+<!--SCRIPT2-->
+
+<div id="container2" style="min-width: 310px; max-width: 800px; height: 600px; margin: 0 auto"></div>
+
+<script>
+$.getJSON('data/urban_rural.json', function(data2) {
+    // Age categories
+    var categories = ['Anatomie și fiziologie umană, genetică și ecologie umană', 'Biologie vegetală și animală', 'Chimie anorganică TEH Nivel I/II     ', 'Chimie anorganică TEO Nivel I/II     ', 'Chimie organică TEH Nivel I/II', 'Chimie organică TEO Nivel I/II', 'Economie', 'Filosofie', 'Fizică TEH', 'Fizică TEO', 'Geografie', 'Informatică MI C/C++', 'Informatică MI Pascal', 'Informatică SN C/C++', 'Informatică SN Pascal', 'Istorie', 'Limba română (REAL)', 'Limba română (UMAN)', 'Logică, argumentare și comunicare', 'Matematică MATE-INFO', 'Matematică PED', 'Matematică ST-NAT', 'Matematică TEHN', 'Psihologie', 'Sociologie'];
+    $(document).ready(function () {
+        $('#container2').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Medii bacalaureat pe materii'
+            },
+            subtitle: {
+                text: 'Urban/Rural'
+            },
+            xAxis: [{
+                categories: categories,
+                reversed: false,
+                labels: {
+                    step: 1
+                }
+            }, { // mirror axis on right side
+                opposite: true,
+                reversed: false,
+                categories: categories,
+                linkedTo: 0,
+                labels: {
+                    step: 1
+                }
+            }],
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value;
+                    }
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + this.point.category + '</b><br/>' +
+                        'Medie: ' + Highcharts.numberFormat(this.point.y, 2);
+                }
+            },
+
+            series: data2.series
+        });
+    });
+
+});
+</script>
+<br>
+<br>
+<!--SCRIPT3-->
+
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<div id="container1" style="height: 400px; min-width: 310px; max-width: 600px; margin: 0 auto"></div>
+
+
+<script>
+$.getJSON('data/bubble.json', function(data1) {
+    $('#container1').highcharts({
+
+        chart: {
+            type: 'bubble',
+            zoomType: 'xy'
+        },
+        xAxis: { // Primary yAxis
+            labels: {
+                format: '{value} loc',
+                style: {
+                    color: Highcharts.getOptions().colors[3]
+                }
+            },
+            title: {
+                text: 'Populatie',
+                style: {
+                    color: Highcharts.getOptions().colors[3]
+                }
+            },
+            opposite: true
+
+        },
+
+        yAxis: { 
+            labels: {
+                format: '{value} ha',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            title: {
+                text: 'Suprafata',
+                style: {
+                    color: Highcharts.getOptions().colors[2]
+                }
+            },
+            opposite: true
+
+        }, 
+
+        title: {
+            text: 'Populatia in raport cu suprafata'
+        },
+        subtitle:{
+            text: 'Pe judete'
+        },
+
+        series: data1.series
+    });
+});
+</script>
+<br>
+<br>
+<!--SCRIPT4-->
+
+<script src="http://code.highcharts.com/modules/heatmap.js"></script>
+<script src="http://code.highcharts.com/modules/treemap.js"></script>
+
+<div id="container3" style="width:1100px;height:550px;margin-left:auto;margin-right:auto"></div>
+
+<script>
+
+$.getJSON('data/populatie.json', function(data3) {
+    var data = data3.series ,
+        points = [],
+        judet_p,
+        judet_i,
+        loc_p,
+        loc_i,
+        date_p,
+        date_i,
+        date_name = [],
+        judet,
+        loc,
+        date;
+    date_name['Populatie'] = 'POPULATIE';
+    judet_i = 0;
+    for (judet in data) {
+        if (data.hasOwnProperty(judet)) {
+            judet_p = {
+                id: "id_" + judet_i,
+                name: judet,
+                color: Highcharts.getOptions().colors[judet_i%10]
+            };
+            loc_i = 0;
+            for (loc in data[judet]) {
+                if (data[judet].hasOwnProperty(loc)) {
+                    loc_p = {
+                        id: judet_p.id + "_" + loc_i,
+                        name: loc,
+                        parent: judet_p.id
+                    };
+                    points.push(loc_p);
+                    date_i = 0;
+                    for (date in data[judet][loc]) {
+                        if (data[judet][loc].hasOwnProperty(date)) {
+                            date_p = {
+                                id: loc_p.id + "_" + date_i,
+                                name: date_name[date],
+                                parent: loc_p.id,
+                                value: Math.round(+data[judet][loc][date])
+                            };
+                            points.push(date_p);
+                            date_i = date_i + 1;
+                        }
+                    }
+                    loc_i = loc_i + 1;
+                }
+            }
+            points.push(judet_p);
+            judet_i = judet_i + 1;
+        }
+    }
+    console.log(points);
+ $(document).ready(function () {
+    $('#container3').highcharts({
+        series: [{
+            type: "treemap",
+            layoutAlgorithm: 'squarified',
+            allowDrillToNode: true,
+            dataLabels: {
+                enabled: false
+            },
+            levelIsConstant: false,
+            levels: [{
+                level: 1,
+                dataLabels: {
+                    enabled: true
+                },
+                borderWidth: 1
+            }],
+            data: points
+        }],
+        subtitle: {
+            text: 'Orase/Municipii'
+        },
+        title: {
+            text: 'Populatia Romaniei'
+        }
+    });
+  });
+});
+</script>
+</body>

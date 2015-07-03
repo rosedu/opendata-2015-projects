@@ -1,0 +1,95 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//code.highcharts.com/highcharts.js"></script>
+<script src="//code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+<script src="http://code.highcharts.com/modules/heatmap.js"></script>
+<script src="http://code.highcharts.com/modules/treemap.js"></script>
+
+<div id="container3" style="width:1000px;height:500px"></div>
+
+<script>
+
+$.getJSON('data/populatie.json', function(data3) {
+    var data = data3.series ,
+        points = [],
+        judet_p,
+        judet_i,
+        loc_p,
+        loc_i,
+        date_p,
+        date_i,
+        date_name = [],
+        judet,
+        loc,
+        date;
+    date_name['Populatie'] = 'POPULATIE';
+    judet_i = 0;
+    for (judet in data) {
+        if (data.hasOwnProperty(judet)) {
+            judet_p = {
+                id: "id_" + judet_i,
+                name: judet,
+                color: Highcharts.getOptions().colors[judet_i%10]
+            };
+            loc_i = 0;
+            for (loc in data[judet]) {
+                if (data[judet].hasOwnProperty(loc)) {
+                    loc_p = {
+                        id: judet_p.id + "_" + loc_i,
+                        name: loc,
+                        parent: judet_p.id
+                    };
+                    points.push(loc_p);
+                    date_i = 0;
+                    for (date in data[judet][loc]) {
+                        if (data[judet][loc].hasOwnProperty(date)) {
+                            date_p = {
+                                id: loc_p.id + "_" + date_i,
+                                name: date_name[date],
+                                parent: loc_p.id,
+                                value: Math.round(+data[judet][loc][date])
+                            };
+                            points.push(date_p);
+                            date_i = date_i + 1;
+                        }
+                    }
+                    loc_i = loc_i + 1;
+                }
+            }
+            points.push(judet_p);
+            judet_i = judet_i + 1;
+        }
+    }
+    console.log(points);
+ $(document).ready(function () {
+    $('#container3').highcharts({
+        series: [{
+            type: "treemap",
+            layoutAlgorithm: 'squarified',
+            allowDrillToNode: true,
+            dataLabels: {
+                enabled: false
+            },
+            levelIsConstant: false,
+            levels: [{
+                level: 1,
+                dataLabels: {
+                    enabled: true
+                },
+                borderWidth: 1
+            }],
+            data: points
+        }],
+        subtitle: {
+            text: 'Orase/Municipii'
+        },
+        title: {
+            text: 'Populatia'
+        }
+    });
+  });
+});
+</script>

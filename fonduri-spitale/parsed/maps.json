@@ -1,0 +1,256 @@
+{
+  "series": [
+    {
+      "siruta": 16, 
+      "brev": "DJ", 
+      "namee": "Dolj", 
+      "value": 87830
+    }, 
+    {
+      "siruta": 21, 
+      "brev": "IL", 
+      "namee": "Ialomita", 
+      "value": 33821
+    }, 
+    {
+      "siruta": 1, 
+      "brev": "AB", 
+      "namee": "Alba", 
+      "value": 40654
+    }, 
+    {
+      "siruta": 27, 
+      "brev": "NT", 
+      "namee": "Neamt", 
+      "value": 58106
+    }, 
+    {
+      "siruta": 42, 
+      "brev": "GR", 
+      "namee": "Giurgiu", 
+      "value": 40045
+    }, 
+    {
+      "siruta": 19, 
+      "brev": "HR", 
+      "namee": "Harghita", 
+      "value": 32849
+    }, 
+    {
+      "siruta": 30, 
+      "brev": "SM", 
+      "namee": "Satu Mare", 
+      "value": 40360
+    }, 
+    {
+      "siruta": 28, 
+      "brev": "OT", 
+      "namee": "Olt", 
+      "value": 58523
+    }, 
+    {
+      "siruta": 22, 
+      "brev": "IS", 
+      "namee": "Iasi", 
+      "value": 74278
+    }, 
+    {
+      "siruta": 38, 
+      "brev": "VL", 
+      "namee": "Valcea", 
+      "value": 41634
+    }, 
+    {
+      "siruta": 9, 
+      "brev": "BR", 
+      "namee": "Braila", 
+      "value": 41850
+    }, 
+    {
+      "siruta": 33, 
+      "brev": "SV", 
+      "namee": "Suceava", 
+      "value": 67545
+    }, 
+    {
+      "siruta": 26, 
+      "brev": "MS", 
+      "namee": "Mures", 
+      "value": 63001
+    }, 
+    {
+      "siruta": 20, 
+      "brev": "HD", 
+      "namee": "Hunedoara", 
+      "value": 51357
+    }, 
+    {
+      "siruta": 15, 
+      "brev": "DB", 
+      "namee": "Dambovita", 
+      "value": 57229
+    }, 
+    {
+      "siruta": 25, 
+      "brev": "MH", 
+      "namee": "Mehedinti", 
+      "value": 36883
+    }, 
+    {
+      "siruta": 37, 
+      "brev": "VS", 
+      "namee": "Vaslui", 
+      "value": 47926
+    }, 
+    {
+      "siruta": 4, 
+      "brev": "BC", 
+      "namee": "Bacau", 
+      "value": 74114
+    }, 
+    {
+      "siruta": 17, 
+      "brev": "GL", 
+      "namee": "Galati", 
+      "value": 59454
+    }, 
+    {
+      "siruta": 7, 
+      "brev": "BT", 
+      "namee": "Botosani", 
+      "value": 51239
+    }, 
+    {
+      "siruta": 12, 
+      "brev": "CJ", 
+      "namee": "Cluj", 
+      "value": 71551
+    }, 
+    {
+      "siruta": 24, 
+      "brev": "MM", 
+      "namee": "Maramures", 
+      "value": 49387
+    }, 
+    {
+      "siruta": 34, 
+      "brev": "TR", 
+      "namee": "Teleorman", 
+      "value": 62365
+    }, 
+    {
+      "siruta": 10, 
+      "brev": "BZ", 
+      "namee": "Buzau", 
+      "value": 59166
+    }, 
+    {
+      "siruta": 41, 
+      "brev": "CL", 
+      "namee": "Calarasi", 
+      "value": 39106
+    }, 
+    {
+      "siruta": 35, 
+      "brev": "TM", 
+      "namee": "Timis", 
+      "value": 68859
+    }, 
+    {
+      "siruta": 13, 
+      "brev": "CT", 
+      "namee": "Constanta", 
+      "value": 67874
+    }, 
+    {
+      "siruta": 32, 
+      "brev": "SB", 
+      "namee": "Sibiu", 
+      "value": 40320
+    }, 
+    {
+      "siruta": 39, 
+      "brev": "VN", 
+      "namee": "Vrancea", 
+      "value": 41622
+    }, 
+    {
+      "siruta": 14, 
+      "brev": "CV", 
+      "namee": "Covasna", 
+      "value": 22380
+    }, 
+    {
+      "siruta": 2, 
+      "brev": "AR", 
+      "namee": "Arad", 
+      "value": 55248
+    }, 
+    {
+      "siruta": 5, 
+      "brev": "BH", 
+      "namee": "Bihor", 
+      "value": 67938
+    }, 
+    {
+      "siruta": 18, 
+      "brev": "GJ", 
+      "namee": "Gorj", 
+      "value": 37275
+    }, 
+    {
+      "siruta": 6, 
+      "brev": "BN", 
+      "namee": "Bistrita N.", 
+      "value": 29989
+    }, 
+    {
+      "siruta": 29, 
+      "brev": "PH", 
+      "namee": "Prahova", 
+      "value": 89475
+    }, 
+    {
+      "siruta": 23, 
+      "brev": "IF", 
+      "namee": "Ilfov", 
+      "value": 32121
+    }, 
+    {
+      "siruta": 36, 
+      "brev": "TL", 
+      "namee": "Tulcea", 
+      "value": 26625
+    }, 
+    {
+      "siruta": 31, 
+      "brev": "SJ", 
+      "namee": "Salaj", 
+      "value": 28415
+    }, 
+    {
+      "siruta": 3, 
+      "brev": "AG", 
+      "namee": "Arges", 
+      "value": 66155
+    }, 
+    {
+      "siruta": 11, 
+      "brev": "CS", 
+      "namee": "Caras Sev.", 
+      "value": 38247
+    }, 
+    {
+      "siruta": 40, 
+      "brev": "B", 
+      "namee": "M.Bucuresti", 
+      "value": 192638
+    }, 
+    {
+      "siruta": 8, 
+      "brev": "BV", 
+      "namee": "Brasov", 
+      "value": 53143
+    }
+  ]
+}

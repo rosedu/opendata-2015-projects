@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculeaza traseul</title>
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+      
+        var waypts = [];
+        function sterge ()
+        {
+          waypts.length = 0;
+          var text = document.getElementById('gigi');
+          text.value = "";
+
+        }
+        function myFunction() {
+
+        var checkboxArray = document.getElementById('waypoints');
+        var text = document.getElementById('gigi');
+        
+
+          for (var i = 0; i < checkboxArray.length; i++) {
+          if (checkboxArray.options[i].selected == true) {
+          waypts.push({
+            location:checkboxArray[i].value,
+            stopover:true});
+          text.value +=  checkboxArray[i].text + "\n";
+
+          }
+        }
+        console.log(waypts);
+       }
+      function calculateRoute(from, to) {
+        // Center initialized to Naples, Italy
+        var myOptions = {
+          zoom: 6,
+          center: new google.maps.LatLng(46, 25),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        // Draw the map
+        var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
+ 
+        var directionsService = new google.maps.DirectionsService();
+      
+        
+        var directionsRequest = {
+          origin: from,
+          destination: to,
+          waypoints: waypts,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC
+        };
+        directionsService.route(
+          directionsRequest,
+          function(response, status)
+          {
+            if (status == google.maps.DirectionsStatus.OK)
+            {
+              new google.maps.DirectionsRenderer({
+                map: mapObject,
+                directions: response
+              });
+            }
+            else
+              $("#error").append("Unable to retrieve your route<br />");
+          }
+        );
+      }
+ 
+      $(document).ready(function() {
+        // If the browser supports the Geolocation API
+        if (typeof navigator.geolocation == "undefined") {
+          $("#error").text("Your browser doesn't support the Geolocation API");
+          return;
+        }
+ 
+        $("#from-link, #to-link").click(function(event) {
+          event.preventDefault();
+          var addressId = this.id.substring(0, this.id.indexOf("-"));
+ 
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+              "location": new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+            },
+            function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK)
+                $("#" + addressId).val(results[0].formatted_address);
+              else
+                $("#error").append("Unable to retrieve your address<br />");
+            });
+          },
+          function(positionError){
+            $("#error").append("Error: " + positionError.message + "<br />");
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10 * 1000 // 10 seconds
+          });
+        });
+ 
+        $("#calculate-route").submit(function(event) {
+          event.preventDefault();
+          calculateRoute($("#from").val(), $("#to").val());
+        });
+
+        $("#adauga").submit(function(event) {
+          event.preventDefault();
+          calculateRoute($("#from").val(), $("#to").val());
+        });
+      });
+    </script>
+
+    <script type="text/javascript">
+      MyUtil = new Object();
+      MyUtil.selectFilterData = new Object();
+      MyUtil.selectFilter = function(selectId, filter) {
+        var list = document.getElementById(selectId);
+        if(!MyUtil.selectFilterData[selectId]) { //if we don't have a list of all the options, cache them now'
+          MyUtil.selectFilterData[selectId] = new Array();
+          for(var i = 0; i < list.options.length; i++) 
+            MyUtil.selectFilterData[selectId][i] = list.options[i];
+        }
+        list.options.length = 0;   //remove all elements from the list
+        for(var i = 0; i < MyUtil.selectFilterData[selectId].length; i++) { //add elements from cache if they match filter
+          var o = MyUtil.selectFilterData[selectId][i];
+          if(o.text.toLowerCase().indexOf(filter.toLowerCase()) >= 0) list.add(o, null);
+        }
+      }
+    </script>
+
+
+
+    <style type="text/css">
+      #map {
+        width: 750px;
+        height: 400px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Calculeaza traseul</h1>
+
+       
+    <form id="calculate-route" name="calculate-route" action="#" method="get">
+      <label for="from">De la:</label>
+      <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
+      <a id="from-link" href="#">Afla pozitia mea</a>
+      <br />
+ 
+      <label for="to">La:</label>
+      <input type="text" id="to" name="to" required="required" placeholder="Another address" size="30" />
+      <a id="to-link" href="#">Afla pozitia mea</a>
+      <br />
+ 
+      <input type="submit" />
+      <input type="reset" />
+
+      <div id="control_panel" style="float:right;width:40%;text-align:left;padding-top:20px">
+    <div style="margin:20px;border-width:2px;">
+
+    <br>
+    <b>Vreau sa trec pe la: </b> <br>
+    <i>(Ctrl-Click pentru selectie multipla)</i> <br>
+    <b>Filtru:</b> <input type="text" onkeyup="MyUtil.selectFilter('waypoints', this.value)" /><br>
+    <select multiple id="waypoints" style="float:right;width:100%; height:200px">
+      <option value="46.9265827, 25.3456391"> Colecția muzeală a Mănăstirii "Sf. Ilie"</option>
+  <option value="46.3558024, 25.8020584"> Muzeul Secuiesc al Ciucului</option>
+  <option value="46.9242004, 25.3553714"> Muzeul de Etnografie Toplița</option>
+  <option value="46.289817, 25.033368"> Muzeul Orășenesc "Molnár István"</option>
+  <option value="44.4324966, 26.0742976"> Muzeul Memorial "Dimitrie și Aurelia Ghiață"</option>
+  <option value="44.439209, 26.1132959"> Muzeul "Theodor Pallady"</option>
+  <option value="45.797574, 24.151386"> Muzeul Civilizației Transilvane "ASTRA"</option>
+  <option value="45.7977955, 24.1514951"> Muzeul de Etnografie și Artă Populară Săsească "Emil Sigerus"</option>
+  <option value="47.6430704, 26.2725216"> Muzeul Bucovinei. Cetatea de Scaun a Sucevei</option>
+  <option value="43.893319, 25.968947"> Muzeul Școlii nr. 4 "Mihai Eminescu'' Giurgiu</option>
+  <option value="44.660929, 24.260462"> Muzeul Viei și Vinului Drăgșani</option>
+  <option value="47.9273049, 23.891379"> Memorialul Victimelor Comunismului și al Rezistenței</option>
+  <option value="45.8027811, 26.2558681"> Casa Memorială "Romulus Cioflec"</option>
+  <option value="44.4267674, 26.1025384"> Muzeul Costumelor Populare din România</option>
+  <option value="47.6572221, 23.5404773"> Muzeul Florean</option>
+  <option value="47.0566425, 21.9340847"> Muzeul Memorial "Aurel Lazăr"</option>
+  <option value="44.4084249, 26.1719068"> Muzeul Regiei Autonome de Transport București (RATB)</option>
+  <option value="46.767462, 23.591655"> Muzeul de Paleontologie-Stratigrafie al Universității "Babeș-Bolyai"</option>
+  <option value="44.439296, 26.092402"> Muzeul "Dr. Ioan și Nicolae Kalinderu"</option>
+  <option value="44.3186865, 23.7936234"> Muzeul Olteniei. Secția de Științele Naturii</option>
+  <option value="44.314896, 23.7984818"> Colecția muzeală a Mitropoliei Ortodoxe a Olteniei</option>
+  <option value="44.3186865, 23.7936234"> Muzeul Olteniei</option>
+  <option value="44.318616, 23.7990679"> Muzeul Teatrului Național "Marin Sorescu"</option>
+  <option value="46.07142, 20.627662"> Expoziția Memorială "Béla Bártok"</option>
+  <option value="44.8883178, 22.423773"> Muzeul Stațiunii Băile Herculane</option>
+  <option value="45.15, 25.516667"> Punct muzeal Bezdead</option>
+  <option value="47.7928974, 22.8825259"> Muzeul Județean Satu Mare</option>
+  <option value="47.681672, 22.469752"> Muzeul Municipiului Carei</option>
+  <option value="47.8692874, 23.4264367"> Muzeul Țării Oașului</option>
+  <option value="47.477222, 22.583889"> Muzeul Orășenesc Tășnad</option>
+  <option value="47.176695, 23.056814"> Muzeul Județean de Istorie și Artă. Galeria de Artă "Ioan Sima"</option>
+  <option value="47.179538, 23.0540309"> Muzeul Județean de Istorie și Artă</option>
+  <option value="46.775833, 24.708333"> Muzeul Etnografic Reghin</option>
+  <option value="46.5719794, 26.9176053"> Casa Memorială "Nicu Enea"</option>
+  <option value="46.566559, 26.906748"> Muzeul de Artă Bacău</option>
+  <option value="46.564803, 26.905517"> Observatorul Astronomic "V. Anestin"</option>
+  <option value="46.421354, 26.441453"> Muzeul de Etnografie și Artă Contemporană "Dimitrie N. Ghika Comănești"</option>
+  <option value="46.5641541, 26.9152969"> Complexul Muzeal "Iulian Antonescu"</option>
+  <option value="46.583333, 26.916667"> Complexul Muzeal de Științele Naturii "Ion Borcea"</option>
+  <option value="44.436802, 26.1019841"> Muzeul Teatrului Național "I.L. Caragiale"</option>
+  <option value="44.4403249, 26.1214693"> Muzeul Național al Pompierilor</option>
+  <option value="44.433759, 26.059109"> Muzeul Național Cotroceni</option>
+  <option value="44.4419892, 26.0770968"> Muzeul Militar Național "Regele Ferdinand I"</option>
+  <option value="44.4313323, 26.0969258"> Muzeul Național de Istorie a României</option>
+  <option value="44.454651, 26.084612"> Muzeul Național Geologic</option>
+  <option value="44.4421904, 26.0940214"> Muzeul Național de Artă al României</option>
+  <option value="45.159444, 29.652778"> Muzeul "Farul Sulinei"</option>
+  <option value="46.2395222, 27.6737232"> Grădina Zoologică Bârlad</option>
+  <option value="46.674167, 28.059722"> Muzeul Viticol</option>
+  <option value="45.103221, 24.357851"> Casa Memorială "Anton Pann"</option>
+  <option value="44.625417, 22.6559351"> Muzeul de Artă Drobeta-Turnu Severin</option>
+  <option value="47.5209692, 25.5941802"> Colecția Etnografică Bucovineană "Ioan Grămadă"</option>
+  <option value="44.624992, 22.665925"> Muzeul Regiunii Porților de Fier</option>
+  <option value="47.6664312, 23.5739721"> Grădina Zoologică Baia Mare</option>
+  <option value="47.919226, 23.927597"> Muzeul Satului Maramureșean</option>
+  <option value="45.1025449, 24.3619156"> Colecția muzeală a Episcopiei de Râmnic</option>
+  <option value="46.302359, 25.292382"> Muzeul "Haáz Rezsö"</option>
+  <option value="45.7344876, 23.9843192"> Muzeu comunal Gura Râului</option>
+  <option value="44.8572457, 24.8694791"> Galeria de Artă Naivă</option>
+  <option value="46.569825, 26.908737"> Casa Memorială "George Bacovia"</option>
+  <option value="44.8535073, 24.8490787"> Grădina Zoologică Pitești</option>
+  <option value="47.7131424, 24.4375912"> Muzeul evreiesc "Casa Elefant"</option>
+  <option value="46.7751144, 23.6024402"> Muzeul Hoștezenilor al Parohiei Reformate</option>
+  <option value="43.8077529, 28.5823007"> Muzeul Marinei Mangalia</option>
+  <option value="47.7065119, 24.429307"> Centrul Documentar-Expozițional al Nobilimii Române Maramureșene</option>
+  <option value="44.4313323, 26.0969258"> Muzeul Național Filatelic</option>
+  <option value="47.369617, 24.673319"> Muzeul de Artă Comparată</option>
+  <option value="46.933265, 26.368996"> Expoziția "Curtea Domnească" Piatra-Neamț</option>
+  <option value="46.9346869, 26.367086"> Galeria de Artă "Lascăr Vorel"</option>
+  <option value="45.7620256, 24.1231871"> Grădina Zoologică Sibiu</option>
+  <option value="44.366667, 24.266667"> Colecția de Arheologie și Etnografie Piatra-Olt</option>
+  <option value="44.9369508, 25.4496735"> Muzeul Poliției Române</option>
+  <option value="44.4570912, 26.0929197"> Muzeul Național al Hărților și Cărții Vechi</option>
+  <option value="45.797719, 24.1515619"> Complexul Național Muzeal "ASTRA"</option>
+  <option value="45.794796, 24.1478555"> Muzeul de Icoane și Obiecte Bisericești "Casa Mihai Eminescu"</option>
+  <option value="45.633056, 24.2575"> Colecția Etnografică Boița</option>
+  <option value="45.7134371, 24.1524718"> Expoziția muzeală "Istoricul Industriei Textile"</option>
+  <option value="44.2455034, 28.2708248"> Colecția muzeală a Geamiei Medgidia</option>
+  <option value="43.8172887, 28.583238"> Muzeul de Arheologie "Callatis"</option>
+  <option value="44.4263232, 26.0975328"> Muzeul "Mitropolit Antim Ivireanul"</option>
+  <option value="45.1871592, 26.0393969"> Casa Memorială "Nicolae Tonitza"</option>
+  <option value="45.8503929, 26.1561728"> Muzeul Etnografic Ceangăiesc</option>
+  <option value="44.855734, 24.871065"> Muzeul Sportului Argeșean</option>
+  <option value="46.767462, 23.591655"> Muzeul de Mineralogie al Universității "Babeș-Bolyai"</option>
+  <option value="47.983333, 23.216667"> Gospodărie țărănească Turț</option>
+  <option value="47.7958048, 23.2961997"> Gospodăria țărănească Orașu Nou</option>
+  <option value="47.951206, 26.3979469"> Muzeul de Științele Naturii Dorohoi</option>
+  <option value="45.687439, 21.9055587"> Colecția muzeală a Protoieriei Ortodoxe Lugoj</option>
+  <option value="46.2466621, 24.1697793"> Expoziția Etnografică</option>
+  <option value="44.4323446, 26.0987459"> Muzeul Băncii Naționale a României</option>
+  <option value="47.657788, 23.563756"> Planetariul Baia Mare</option>
+  <option value="47.6448452, 26.2576435"> Muzeul Bucovinei. Secția de Etnografie Hanul Domnesc</option>
+  <option value="45.7259894, 27.2328916"> Muzeul Vrancei. Secția de Arhitectură și Tehnică populară "Crângul Petrești"</option>
+  <option value="45.698881, 27.176131"> Muzeul Vrancei</option>
+  <option value="47.661648, 23.58218"> Muzeul Județean de Istorie și Arheologie Maramureș</option>
+  <option value="44.476368, 26.1106024"> Muzeul Aviației</option>
+  <option value="47.2838617, 24.410107"> Muzeul Grăniceresc Năsăudean</option>
+  <option value="47.1381137, 24.5061437"> Complexul Muzeal Bistrița-Năsăud</option>
+  <option value="47.958365, 26.391834"> Muzeul Memorial "George Enescu"</option>
+  <option value="45.1845841, 26.0407985"> Muzeul Memorial "Nicolae Iorga"</option>
+  <option value="47.9582058, 26.8597484"> Muzeul de Arheologie Săveni</option>
+  <option value="45.1850778, 26.0401543"> Muzeul de Etnografie al Văii Teleajănului</option>
+  <option value="45.3524601, 25.5505433"> Muzeul Rezervației Naturale Bucegi</option>
+  <option value="44.444444, 26.091878"> Muzeul Colecțiilor de Artă</option>
+  <option value="44.448698, 26.093008"> Observatorul Astronomic Municipal "Amiral Vasile Urseanu" București</option>
+  <option value="44.4378259, 26.0693698"> Grădina Botanică "Dimitrie Brandza"</option>
+  <option value="44.915336, 25.4901915"> Muzeul Comunității Bulgarilor</option>
+  <option value="44.4351536, 26.0840734"> Colecția Memorială "Maria Filotti"</option>
+  <option value="44.4135049, 26.0993683"> Muzeul Național Tehnic "Prof. ing. Dimitrie Leonida"</option>
+  <option value="44.395707, 26.120226"> Casa Memorială "Tudor Arghezi"</option>
+  <option value="44.4376625, 26.1112563"> Colecția muzeală a Episcopiei Armeano-Gregoriene</option>
+  <option value="44.4348031, 26.1022246"> Muzeul Municipiului București</option>
+  <option value="44.4344174, 26.0796784"> Muzeul Universității București</option>
+  <option value="47.1838547, 27.559607"> Grădina Botanică "Anastasie Fătu"</option>
+  <option value="47.187426, 27.564296"> Muzeul de Artă Iași</option>
+  <option value="47.171247, 27.576513"> Muzeul "Vasile Pogor"</option>
+  <option value="47.1719418, 27.581245"> Muzeul Memorial "Poni - Cernătescu"</option>
+  <option value="47.159, 27.598617"> Muzeul "Otilia Cazimir"</option>
+  <option value="47.532233, 25.551136"> Colecția de linguri de lemn "Ioan și Elisabeta Țugui"</option>
+  <option value="47.187426, 27.564296"> Muzeul de Istorie a Moldovei</option>
+  <option value="47.187426, 27.564296"> Muzeul Etnografic al Moldovei</option>
+  <option value="46.070073, 23.5717109"> Colecția publică din cadrul Universității „1 Decembrie 1918”</option>
+  <option value="46.1696352, 23.9223172"> Muzeul Arhiepiscopiei Majore a Bisericii Greco-Catolice</option>
+  <option value="45.645001, 25.599319"> Muzeul Etnografic Hărman</option>
+  <option value="45.92, 23.2"> Complexul Memorial "Aurel Vlaicu"</option>
+  <option value="45.7489009, 22.891547"> Muzeul Castelul Corvinilor</option>
+  <option value="45.856834, 23.012763"> Parcul Dendrologic Simeria</option>
+  <option value="47.174963, 27.57864"> Muzeul "George Topîrceanu"</option>
+  <option value="45.24818, 25.028151"> Muzeul și Rezervația Arheologică de la Castrul Roman Jidava</option>
+  <option value="45.269044, 25.0435598"> Muzeul Municipal Câmpulung</option>
+  <option value="47.174075, 27.580416"> Muzeul Memorial "Mihail Kogălniceanu"</option>
+  <option value="47.1676829, 27.586824"> Muzeul "Mihai Codreanu"</option>
+  <option value="47.1782945, 27.5669757"> Muzeul "Mihai Eminescu"</option>
+  <option value="47.174691, 27.582867"> Muzeul "Ion Creangă"</option>
+  <option value="45.146781, 24.676057"> Colecția muzeală a Mănăstirii Ortodoxe Curtea de Argeș</option>
+  <option value="45.084747, 25.432374"> Muzeul Municipal Câmpulung. Secția de Etnografie și Artă Populară</option>
+  <option value="44.855734, 24.871065"> Muzeul Județean Argeș</option>
+  <option value="44.858212, 24.869568"> Galeria de Artă „Rudolf Schweitzer-Cumpăna”</option>
+  <option value="45.141252, 24.675996"> Muzeul Municipal Curtea de Argeș</option>
+  <option value="47.0483945, 21.924413"> Muzeul Militar Național "Regele Ferdinand I". Filiala Oradea</option>
+  <option value="44.3622304, 27.8104006"> Muzeul Municipal Fetești</option>
+  <option value="45.700182, 27.189287"> Muzeul Unirii Focșani</option>
+  <option value="44.4842825, 26.0752934"> Muzeul de Artă Populară "Prof. Dr. Nicolae Minovici"</option>
+  <option value="45.786769, 20.718217"> Casa Memorială "dr. Karl Diel"</option>
+  <option value="45.794111, 20.71665"> Muzeul Pompierilor "Florian"</option>
+  <option value="47.651389, 26.255556"> Muzeul Bucovinei. Muzeul Satului Bucovinean</option>
+  <option value="47.531332, 25.553809"> Muzeul "Arta lemnului"</option>
+  <option value="47.465226, 26.2994576"> Galeria Oamenilor de Seamă din Fălticeni</option>
+  <option value="38.8048355, -77.0469214"> Muzeul Județean Teleorman</option>
+  <option value="43.8106773, 28.581368"> Geamia "Esmahan Sultan"</option>
+  <option value="45.1439809, 24.674822"> Muzeul Municipal Curtea de Argeș. Secția de Etnografie și Artă Populară</option>
+  <option value="45.3553839, 25.5521144"> Colecția muzeală a Mănăstirii Ortodoxe Sinaia</option>
+  <option value="45.1772563, 28.8018152"> Institutul de Cercetări Eco-Muzeale "Gavrilă Simion"</option>
+  <option value="47.207166, 26.357774"> Casa Memorială "Veronica Micle"</option>
+  <option value="45.180626, 28.8049004"> Muzeul de Artă Tulcea</option>
+  <option value="45.182759, 28.8099182"> Muzeul de Istorie și Arheologie Tulcea</option>
+  <option value="45.179567, 28.80582"> Muzeul de Etnografie și Artă Populară Tulcea</option>
+  <option value="45.1803713, 28.8060577"> Centrul Muzeal Ecoturistic Delta Dunării</option>
+  <option value="46.931418, 26.366487"> Muzeul Memorial "Calistrat Hogaș"</option>
+  <option value="45.13187, 27.477717"> Muzeul Brăilei. Secția de Științele Naturii</option>
+  <option value="45.2935391, 27.9472779"> Muzeul Brăilei</option>
+  <option value="45.2745439, 27.977123"> Muzeul Brăilei. Secția de Etnografie și Artă Populară</option>
+  <option value="45.2718287, 27.97645"> Muzeul Brăilei. Centrul de Cultură "Nicăpetre"</option>
+  <option value="45.2745439, 27.977123"> Casa Memorială "Panait Istrati"</option>
+  <option value="45.2767211, 27.9759905"> Casa Memorială "D. P. Perpessicius"</option>
+  <option value="47.145349, 27.569225"> Colecția muzeală a Mănăstirii Galata</option>
+  <option value="45.14858, 26.823768"> Colecția de Etnografie și Artă Populară "Casa Vergu - Mănăilă"</option>
+  <option value="47.1641344, 27.5894714"> Colecția Mănăstirii Golia</option>
+  <option value="45.149727, 26.809034"> Muzeul Județean Buzău</option>
+  <option value="45.156172, 26.820221"> Colecția muzeală a Episcopiei Ortodoxe Buzău</option>
+  <option value="47.9300533, 23.8945368"> Casa Memorială "Ellie Wiesel" - Muzeul Culturii Evreiești din Maramureș</option>
+  <option value="47.1615908, 27.5833547"> Colecția muzeală a Mitropoliei Moldovei și Bucovinei</option>
+  <option value="45.08, 24.179722"> Muzeul de Arheologie și Artă Religioasă "Gheorghe Petre"</option>
+  <option value="45.1025449, 24.3619156"> Muzeul de Artă "Casa Simian"</option>
+  <option value="45.1459911, 23.9890417"> Galeria de artă populară contemporană</option>
+  <option value="45.3808829, 27.0439973"> Muzeul Municipal Râmnicu Sărat</option>
+  <option value="47.1597014, 27.5849721"> Colecția muzeală a Bisericii "Trei Ierarhi"</option>
+  <option value="44.7024095, 26.1720305"> Colecția Publică "ISTORIE-LOCALĂ”-Zona Snagov/Codrii Vlăsiei</option>
+  <option value="46.3944349, 22.9684367"> Expoziția etnografică</option>
+  <option value="47.6331954, 23.7086195"> Muzeul "Gheorghe Ionescu Șișești"</option>
+  <option value="45.0916357, 21.8249144"> Expoziția etnografică</option>
+  <option value="44.45087, 26.094373"> Colecția de Artă Plastică "Fr. Storck și Cecilia Cuțescu Storck"</option>
+  <option value="44.4621843, 26.0997953"> Muzeul Memorial "George Călinescu"</option>
+  <option value="44.3971573, 26.1004478"> Casa Memorială "George și Agatha Bacovia"</option>
+  <option value="44.433507, 26.095665"> Muzeul Memorial "Gh. M. Tattarescu"</option>
+  <option value="44.448656, 26.088835"> Muzeul Național "George Enescu"</option>
+  <option value="44.4367518, 26.0667741"> Casa Memorială "Ion Minulescu"</option>
+  <option value="44.4267674, 26.1025384"> Muzeul Național de Istorie Naturală "Grigore Antipa"</option>
+  <option value="44.447543, 26.092698"> Colecția "Maria și Dr. George Severeanu"</option>
+  <option value="44.4367518, 26.0667741"> Casa Memorială "Liviu Rebreanu - Fanny Rebreanu"</option>
+  <option value="47.6433988, 26.2593105"> Muzeul Bucovinei. Secția de Artă</option>
+  <option value="45.7902317, 24.1192093"> Muzeul Landlerilor</option>
+  <option value="44.4574456, 26.0606492"> Muzeul Universității Politehnice</option>
+  <option value="45.135, 27.474722"> Casa Memorială a Arhimandritului Dometie Manolache</option>
+  <option value="45.4467566, 28.0536596"> Muzeul Episcopiei Dunării de Jos</option>
+  <option value="45.929167, 27.311667"> Colecția muzeală a Mănăstirii Buciumeni</option>
+  <option value="44.434269, 26.125502"> Muzeul Telecomunicațiilor</option>
+  <option value="45.062503, 23.290823"> Casa Memorială "Ecaterina Teodoroiu"</option>
+  <option value="45.039754, 23.276221"> Muzeul Județean Gorj "Alexandru Ștefulescu"</option>
+  <option value="45.0408863, 23.2744629"> Muzeul de Artă Târgu-Jiu</option>
+  <option value="45.264096, 25.039386"> Colecția Mănăstirii "Negru Vodă"</option>
+  <option value="44.0836613, 26.6359764"> Muzeul Civilizației Gumelnița</option>
+  <option value="46.762314, 23.58944"> Grădina Botanică "Alexandru Borza"</option>
+  <option value="46.9543006, 22.8130342"> Muzeul Memorial "Octavian Goga"</option>
+  <option value="46.1761791, 21.3163391"> Colecția de Istorie a Teatrului, Muzicii și Cinematografului "Iosif Sârbuț"</option>
+  <option value="46.2166209, 21.2744601"> Colecția muzeală a Mănăstirii "Sf. Simion-Stâlpnicul"</option>
+  <option value="46.1743979, 21.320307"> Complexul Muzeal Arad</option>
+  <option value="44.6204714, 23.4319209"> Colecția muzeală Brănești</option>
+  <option value="44.8572457, 24.8694791"> Planetariul Pitești</option>
+  <option value="47.2949698, 24.6283746"> Colecția etnografică George Nichiti</option>
+  <option value="45.698738, 27.177394"> Muzeul Vrancei. Secția de Istorie și Arheologie</option>
+  <option value="45.106229, 24.363498"> Muzeul Județean "Aurelian Sacerdoteanu" Vâlcea</option>
+  <option value="44.447355, 26.0927051"> Colecția de Antichități a Institutului de Arheologie "Vasile Pârvan"</option>
+  <option value="44.421452, 26.095676"> Colecția de Artă "Ligia și Pompiliu Macovei"</option>
+  <option value="44.460775, 26.090894"> Muzeul "K. H. Zambaccian"</option>
+  <option value="44.428589, 26.108169"> Muzeul de Istorie a Evreilor din România "Șef rabin Dr. Moses Rosen"</option>
+  <option value="45.9753789, 24.6248744"> Muzeul "Valea Hârtibaciului"</option>
+  <option value="45.798333, 24.151849"> Muzeul de Istoria Farmaciei</option>
+  <option value="45.7866581, 24.1472137"> Muzeul de Vânătoare "August von Spiess"</option>
+  <option value="44.460084, 26.091317"> Muzeul Memorial "Dr. Victor Babeș"</option>
+  <option value="45.792709, 24.149935"> Muzeul de Istorie Naturală Sibiu</option>
+  <option value="45.7602432, 24.1277803"> Muzeul Civilizației Populare Tradiționale "ASTRA"</option>
+  <option value="47.0928917, 21.9123594"> Colecția muzeală a Episcopiei Ortodoxe</option>
+  <option value="46.6677787, 22.3478674"> Muzeul Municipal Beiuș</option>
+  <option value="47.050545, 21.9208488"> Grădina Zoologică Oradea</option>
+  <option value="44.4102912, 26.0776633"> Muzeul Memorial "Liviu Rebreanu"</option>
+  <option value="44.0631987, 28.2327827"> Casa tătărească ”Zulfie Totay”, Fundația Insanlik - Omenia</option>
+  <option value="45.1850778, 26.0401543"> Muzeul de Artă Religioasă "Nicolae Iorga"</option>
+  <option value="45.1772563, 28.8018152"> Casa Avramide - Casa Colecțiilor</option>
+  <option value="47.171247, 27.576513"> Muzeul Literaturii Române Iași</option>
+  <option value="47.1782945, 27.5669757"> Colecția "Istoria teatrului românesc"</option>
+  <option value="47.1674636, 27.5787009"> Muzeul Unirii Iași</option>
+  <option value="47.187426, 27.564296"> Complexul Muzeal Național "Moldova"</option>
+  <option value="47.187426, 27.564296"> Muzeul Științei și Tehnicii "Ștefan Procopiu"</option>
+  <option value="47.160579, 27.589413"> Muzeul "Sf. Ierarh Dosoftei Mitropolitul"</option>
+  <option value="47.1668192, 27.5840939"> Muzeul de Istorie Naturală Iași</option>
+  <option value="43.8860858, 25.9639045"> Muzeul Județean "Teohari Antonescu"</option>
+  <option value="45.846492, 27.429928"> Muzeul de Istorie "Teodor Cincu" Tecuci</option>
+  <option value="43.9024604, 25.9697284"> Muzeul Județean "Teohari Antonescu". Secția de Etnografie și Artă Populară</option>
+  <option value="45.5764756, 28.0046214"> Grădina Zoologică Galați</option>
+  <option value="45.4467566, 28.0536596"> Muzeul de Artă Vizuală</option>
+  <option value="47.1759322, 27.5681828"> Muzeul Universității "Al. I. Cuza”</option>
+  <option value="45.881576, 24.051672"> Colecția Etnografică "Anuța și Aurel Achim"</option>
+  <option value="44.446001, 26.109057"> Muzeul Memorial "C.I. și C.C. Nottara"</option>
+  <option value="47.7926245, 22.8756468"> Muzeul Diecezan "Colecția de Artă Bisericească "Iuliu Meszlenyi”</option>
+  <option value="44.5616114, 27.3617056"> Muzeul Județean Ialomița</option>
+  <option value="44.561826, 27.355414"> Muzeul Național al Agriculturii</option>
+  <option value="46.2743755, 26.5968136"> Monumentul-muzeu "Măgura"</option>
+  <option value="45.1397777, 24.6755256"> Ansamblul Feudal Curtea Domnească și Biserica Domnească de la Argeș</option>
+  <option value="45.1446358, 25.3804056"> Colecția de Artă Plastică "Mihai Tican-Rumano"</option>
+  <option value="47.643471, 26.25932"> Muzeul Bucovinei. Muzeul de Științele Naturii</option>
+  <option value="47.347506, 25.3560888"> Muzeul etnografic Vatra Dornei</option>
+  <option value="47.5554569, 25.8902"> Muzeul Obiceiurilor Populare din Bucovina</option>
+  <option value="47.8455852, 25.9143855"> Muzeul de Etnografie "Samuil și Eugenia Ioneț" - RĂDĂUȚI</option>
+  <option value="47.3415745, 25.3662778"> Muzeul de Științele Naturii și Cinegetică</option>
+  <option value="47.6433988, 26.2593105"> Muzeul Bucovinei. Muzeul de Istorie</option>
+  <option value="46.3114136, 23.7181858"> Muzeul de Științele Naturii</option>
+  <option value="46.0671295, 23.5753518"> Muzeul de Artă Religioasă "Reîntregirea"</option>
+  <option value="44.9369508, 25.4496735"> Muzeul de Artă Târgoviște</option>
+  <option value="46.266667, 21.633333"> Muzeul Memorial "Ioan Slavici și Emil Monția"</option>
+  <option value="46.1720311, 21.3028201"> Muzeul de Artă Arad</option>
+  <option value="45.7917429, 20.714222"> Expoziția Memorială "Ștefan Jäger"</option>
+  <option value="46.2405809, 26.8217396"> Muzeul de Cultură și Artă Religioasă</option>
+  <option value="47.7887511, 22.8790275"> Atelier Memorial "Aurel Popp"</option>
+  <option value="47.79, 22.89"> Atelier Memorial "Paul Erdös"</option>
+  <option value="44.4296558, 26.0822669"> Muzeul Național de Artă Contemporană</option>
+  <option value="45.3582049, 25.5472416"> Muzeul Național Peleș</option>
+  <option value="45.9732512, 24.6271153"> Colecția de obiecte bisericești de pe lângă Biserica "Sf. Nicolae" Agnita</option>
+  <option value="46.636593, 27.726962"> Muzeul Județean "Ștefan cel Mare"</option>
+  <option value="46.2313766, 27.6725569"> Muzeul "Vasile Pârvan"</option>
+  <option value="46.673234, 28.053732"> Muzeul Eparhial Huși</option>
+  <option value="46.6720868, 28.0663315"> Muzeul Municipal Huși</option>
+  <option value="47.207034, 26.358661"> Muzeul de Istorie și Etnografie Târgu Neamț</option>
+  <option value="44.438813, 26.1080359"> Colecție muzeală a aromânilor</option>
+  <option value="45.9143325, 25.2277663"> Punct Muzeal Comana de Jos</option>
+  <option value="44.315384, 23.792107"> Muzeul Olteniei. Secția de Etnografie "Casa Băniei"</option>
+  <option value="46.583333, 25.783333"> Colecția muzeală privată</option>
+  <option value="47.231912, 22.798714"> Muzeul Memorial al Holocaustului din Nordul Transilvaniei</option>
+  <option value="47.6981843, 25.8332726"> Muzeul Sării din Bucovina</option>
+  <option value="44.4842825, 26.0752934"> Muzeul de Artă Veche Apuseană "ing. Dumitru Minovici"</option>
+  <option value="47.642348, 26.2623989"> Colecția muzeală a Arhiepiscopiei Sucevei și Rădăuților</option>
+  <option value="44.9773529, 26.0589905"> Muzeul Memorial "Constantin și Ion Stere"</option>
+  <option value="47.665188, 23.465619"> Colecția Totfalusi Kis Miklos</option>
+  <option value="47.66449, 23.854425"> Muzeul Born și Papp</option>
+  <option value="46.764183, 23.5800899"> Vivariul Universității "Babeș-Bolyai"</option>
+  <option value="46.767482, 23.592346"> Muzeul Universității "Babeș-Bolyai"</option>
+  <option value="47.9282475, 23.8839795"> Casa-Muzeu “Dr. Ioan Mihalyi de Apșa”, Galeriile de Artă</option>
+  <option value="47.926635, 23.9023924"> Muzeul Etnografic al Maramureșului</option>
+  <option value="47.0561214, 21.9368387"> Colecția Muzeului episcopal reformat</option>
+  <option value="46.7682397, 23.5891801"> Muzeul "Poarta de su' Feleac"</option>
+  <option value="46.77098, 23.589956"> Colecția de Istorie a Farmaciei</option>
+  <option value="46.7773883, 23.5611395"> Parcul Etnografic "Romulus Vuia"</option>
+  <option value="46.5717102, 23.7846556"> Muzeul de Istorie Turda</option>
+  <option value="46.771532, 23.58659"> Muzeul Național de Istorie a Transilvaniei</option>
+  <option value="46.7693, 23.586267"> Muzeul Etnografic al Transilvaniei</option>
+  <option value="47.029068, 23.908735"> Muzeul de Istorie Gherla</option>
+  <option value="45.166667, 23.933333"> Colecția muzeală sătească Vaideeni</option>
+  <option value="46.770297, 23.590253"> Muzeul de Artă Cluj-Napoca</option>
+  <option value="46.2335001, 24.8580399"> Casa Memorială "Petõfi Sándor"</option>
+  <option value="46.933616, 26.368516"> Muzeul de Artă Eneolitică Cucuteni</option>
+  <option value="47.171577, 27.577836"> Muzeul "Nicolae Gane"</option>
+  <option value="45.3668066, 25.5489531"> Casa Memorială "George Enescu"</option>
+  <option value="45.4405822, 28.0543376"> Muzeul "Casa Colecțiilor"</option>
+  <option value="44.450329, 26.096386"> Casa Memorială "Constantin Joja"</option>
+  <option value="44.315686, 23.796776"> Casa Memorială "Elena Farago"</option>
+  <option value="45.7481711, 22.9150721"> Grădina Zoologică Hunedoara</option>
+  <option value="45.78928, 20.724134"> Muzeul Presei "Sever Bocu"</option>
+  <option value="44.0265266, 23.3436827"> Muzeul Câmpiei Băileștilor</option>
+  <option value="44.3187357, 23.7947059"> Muzeul de Artă Craiova</option>
+  <option value="45.128262, 27.48311"> Muzeul Ianca</option>
+  <option value="45.7009657, 27.1898034"> Muzeul Vrancei. Secția de Științele Naturii</option>
+  <option value="46.0948652, 27.1815324"> Muzeul Orășenesc Adjud</option>
+  <option value="44.9369508, 25.4496735"> Muzeul de Istorie</option>
+  <option value="44.9369508, 25.4496735"> Complexul Național Muzeal "Curtea Domnească"</option>
+  <option value="45.41, 25.45"> Peștera Ialomicioara</option>
+  <option value="46.0683758, 23.5767497"> Muzeul Național al Unirii</option>
+  <option value="46.30312, 23.118898"> Muzeul Etnografic "Pamfil Albu"</option>
+  <option value="46.3090248, 23.7173875"> Muzeul de Istorie</option>
+  <option value="46.1778562, 23.9217746"> Muzeul de Istorie "Augustin Bunea"</option>
+  <option value="46.754196, 22.3539896"> Muzeul Etnografic Râmetea</option>
+  <option value="47.666667, 23.583333"> Peștera și Ghețarul de la Scărișoara</option>
+  <option value="45.796255, 24.1510891"> Muzeul Național Brukenthal</option>
+  <option value="45.957734, 23.570007"> Muzeul Municipal "Ioan Raica"</option>
+  <option value="45.7085355, 24.0699248"> Colecția Memorială "Octavian Goga"</option>
+  <option value="45.7245297, 24.3781974"> Muzeul Avrig</option>
+  <option value="45.797574, 24.151386"> Muzeul de Etnografie Universală "Franz Binder"</option>
+  <option value="45.7280656, 24.575081"> Muzeul "Badea Cârțan"</option>
+  <option value="45.7969132, 24.1498733"> Muzeul de Istorie Sibiu</option>
+  <option value="47.707251, 24.429519"> Muzeul de Etnografie și Istorie Vișeu de Sus</option>
+  <option value="47.072222, 21.921111"> Muzeul Țării Crișurilor</option>
+  <option value="47.055994, 21.9331084"> Muzeul Memorial "Iosif Vulcan"</option>
+  <option value="47.0578882, 21.9338201"> Muzeul Memorial "Ady Endre"</option>
+  <option value="46.5687126, 26.9132128"> Vivariul Bacău</option>
+  <option value="47.0689974, 21.9325734"> Colecția muzeală a Episcopiei Romano-Catolice Oradea</option>
+  <option value="46.6169493, 24.401044"> Colecția muzeală Mădăraș</option>
+  <option value="44.4293809, 26.1085356"> Muzeul Holocaustului</option>
+  <option value="47.1635935, 27.5945078"> Muzeul Comunității Evreilor din Iași</option>
+  <option value="46.171327, 20.752408"> Muzeul tradițiilor slovacilor din Nădlac</option>
+  <option value="47.6666139, 23.5767354"> Muzeul de Etnografie și Artă Populară Baia Mare</option>
+  <option value="47.6581435, 23.5837191"> Muzeul Județean de Artă "Centrul Artistic Baia Mare"</option>
+  <option value="47.65029, 23.566204"> Muzeul Județean de Mineralogie "Victor Gorduza" Baia Mare</option>
+  <option value="47.9281495, 23.8881971"> Muzeul Maramureșului</option>
+  <option value="44.2981716, 23.8082775"> Grădina Zoologică Craiova</option>
+  <option value="44.424304, 24.371759"> Muzeul Mănăstirii Clocociov</option>
+  <option value="46.358, 25.804"> Muzeul Oltului și al Mureșului Superior</option>
+  <option value="47.665239, 23.46575"> Muzeul satului - "Acasă"</option>
+  <option value="46.5670382, 26.9227832"> Muzeul de Artă Contemporană "George Apostu"</option>
+  <option value="46.2434828, 26.7638997"> Colecția Fundației Naționale "George Călinescu"</option>
+  <option value="46.28, 26.62"> Muzeul de Istorie</option>
+  <option value="45.1871592, 26.0393969"> Muzeul "Natura Văii Teleajănului"</option>
+  <option value="46.7700713, 23.5903703"> Muzeul Szervátiuzs</option>
+  <option value="44.4422799, 26.108211"> Muzeul de Artă "Vasile Grigore - pictor și colecționar"</option>
+  <option value="47.63895, 26.24765"> Observatorul Astronomic al Universității "Ștefan cel Mare" Suceava</option>
+  <option value="46.070213, 23.5704819"> Colecția muzeală a Bibliotecii Batthyaneum</option>
+  <option value="44.3170609, 23.7896262"> Muzeul Olteniei. Secția de Istorie-Arheologie</option>
+  <option value="47.462684, 26.297183"> Muzeul de Artă "Ion Irimescu"</option>
+  <option value="47.4602648, 26.2983264"> Muzeul Apelor "Mihai Băcescu"</option>
+  <option value="47.4658299, 26.286506"> Casa Memorială "Mihail Sadoveanu"</option>
+  <option value="47.645305, 26.254593"> Casa Memorială "Simion Florea Marian"</option>
+  <option value="44.2467265, 28.2652812"> Muzeul de Artă "Lucian Grigorescu"</option>
+  <option value="44.178605, 28.651704"> Muzeul de Artă Constanța</option>
+  <option value="44.1731032, 28.6599639"> Muzeul de Sculptură "Ion Jalea"</option>
+  <option value="46.764183, 23.5800899"> Muzeul Zoologic al Universității "Babeș-Bolyai"</option>
+  <option value="46.5760045, 23.7963769"> Grădina Zoologică Turda</option>
+  <option value="46.7708749, 23.596351"> Colecția muzeală a Mitropoliei Ortodoxe Cluj</option>
+  <option value="47.791974, 22.875249"> Muzeul de Artă Satu Mare</option>
+  <option value="46.571402, 26.907629"> Galeriile de Artă Ceramică "Anton Ciobanu”</option>
+  <option value="45.5131463, 21.1240788"> Expoziția de Etnografie și Artă Populară Ciacova</option>
+  <option value="46.5641938, 26.9141436"> Muzeul Evreiesc "Dr. Alexandru Șafran"</option>
+  <option value="46.561013, 26.911476"> Galeriile ALFA</option>
+  <option value="46.3595705, 26.7408238"> Punct Muzeal Helegiu</option>
+  <option value="46.3625, 23.045556"> Muzeul "Avram Iancu"</option>
+  <option value="44.5224885, 26.0973358"> Grădina Zoologică</option>
+  <option value="45.933333, 20.516667"> Centrul Cultural Teremia Mare</option>
+  <option value="45.683062, 21.903233"> Muzeul de Istorie, Etnografie și Artă Plastică Lugoj</option>
+  <option value="45.6148979, 25.677443"> Muzeul Etnografic Săcele</option>
+  <option value="46.037244, 25.219456"> Muzeul de Etnografie "Gheorghe Cernea"</option>
+  <option value="45.641126, 25.5886749"> Colecția muzeală de argintărie a Casei Parohiale Evanghelice Brașov</option>
+  <option value="46.93488, 26.373995"> Muzeul de Științe Naturale Piatra-Neamț</option>
+  <option value="46.4010925, 23.4288086"> Expoziția etnografică</option>
+  <option value="44.0838859, 26.6360629"> Muzeul de Artă al Municipiului Oltenița</option>
+  <option value="47.196284, 27.55353"> Muzeul "Mihail Sadoveanu"</option>
+  <option value="44.462255, 26.0805743"> Muzeul Național al Satului "Dimitrie Gusti"</option>
+  <option value="44.4298833, 26.1015138"> Expoziția permanentă "Curtea Veche" - Palatul Voievodal</option>
+  <option value="44.440263, 26.098046"> Muzeul "Theodor Aman"</option>
+  <option value="44.4313323, 26.0969258"> Muzeul Sportului din România</option>
+  <option value="44.4546149, 26.084496"> Muzeul Național al Țăranului Român</option>
+  <option value="44.4486516, 26.0731356"> Muzeul Căilor Ferate Române</option>
+  <option value="44.4783548, 26.0724235"> Muzeul Național al Literaturii Române</option>
+  <option value="44.4344655, 26.0793597"> Muzeul Operei Naționale București</option>
+  <option value="46.936381, 26.363536"> Parcul Zoologic Piatra Neamț</option>
+  <option value="44.1487766, 24.5478498"> Muzeul Câmpiei Boianului</option>
+  <option value="44.4300944, 24.3602915"> Muzeul Județean Olt</option>
+  <option value="47.208278, 26.353558"> Muzeul Cetatea Neamțului</option>
+  <option value="46.4304474, 23.438419"> Colecția muzeală sătească Ibănești</option>
+  <option value="46.9279226, 26.3694473"> Complexul Muzeal Județean Neamț</option>
+  <option value="45.65064, 25.7664456"> Muzeul sătesc "Căsuța Amintirilor"</option>
+  <option value="46.6799973, 25.519454"> Casa memorială BORSOS MIKLÓS (BORSOS MIKLÓS EMLÉKHÁZ)</option>
+  <option value="45.8646685, 25.7887832"> Colecția publică de drept privat de interes regional a Asociației Vadon</option>
+    </select>
+    <br>
+        <button onclick="myFunction()">Adauga </button>
+
+    <button onclick="sterge()">Sterge </button>
+    <br><label for="from">Lista muzeelor adaugate:</label>
+    <textarea name="myTextBox" cols="50" rows="5" id = "gigi" readonly="True">
+
+    </textarea>
+  
+    </div>
+    </div>
+    </form>
+    <div id="map"></div>
+    <p id="error"></p>
+  </body>
+</html>
